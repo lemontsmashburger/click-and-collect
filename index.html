@@ -227,12 +227,12 @@
 
     @media (max-width:600px) and (orientation:portrait){
       body{width:100%;min-width:0}
-      .topbar-inner{width:calc(100% - 16px);gap:8px;padding:6px 0}
-      .brand{gap:8px;flex:1 1 auto}
+      .topbar-inner{width:calc(100% - 16px);gap:7px;padding:7px 0;flex-wrap:wrap}
+      .brand{gap:8px;flex:1 1 100%;justify-content:center}
       .brand img{width:42px;height:42px}
-      .brand span{font-size:.88rem;max-width:125px}
-      .top-actions{gap:6px;flex:0 0 auto}
-      .top-actions .phone-btn{display:none}
+      .brand span{font-size:.88rem;max-width:none;text-align:center}
+      .top-actions{width:100%;gap:7px;display:grid;grid-template-columns:minmax(0,1fr) auto}
+      .top-actions .phone-btn{display:inline-flex;min-width:0;min-height:40px;padding:9px 10px;font-size:.86rem;white-space:nowrap}
       .cart-nav{min-height:40px;padding:9px 11px;font-size:.86rem;white-space:nowrap}
 
       .app{width:calc(100% - 16px);padding-bottom:22px}
