@@ -10,7 +10,7 @@
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     html{scroll-behavior:smooth}
     body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--black);background:linear-gradient(135deg,#f7fbf1 0%,#edf6e8 52%,#fff9ed 100%);overflow-x:hidden}
-    button,input,select,textarea{font:inherit}button{cursor:pointer}
+    button,input,select,textarea{font:inherit}button{cursor:pointer;font:inherit;color:inherit;-webkit-appearance:none;appearance:none}
     .topbar{position:sticky;top:0;z-index:60;background:#f7fbf1;border-bottom:1px solid rgba(231,222,214,.75)}
     .topbar-inner{width:min(1220px,calc(100% - 24px));margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:72px}
     .brand{display:flex;align-items:center;gap:12px;min-width:0;font-weight:1000;letter-spacing:-.04em}
@@ -46,11 +46,11 @@
     h2{margin:0;font-size:clamp(1.75rem,4vw,3rem);line-height:.94;letter-spacing:-.065em;font-weight:1100}
     .section-sub{margin:7px 0 0;color:var(--muted);font-weight:760;line-height:1.38}
     .products{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    .burger-card{display:grid;grid-template-columns:122px minmax(0,1fr);gap:14px;align-items:center;padding:13px;min-height:148px;border:1px solid var(--line);border-radius:24px;background:#fff;transition:.14s ease;cursor:pointer;text-align:left}
+    .burger-card{display:grid;grid-template-columns:122px minmax(0,1fr);gap:14px;align-items:center;padding:13px;min-height:148px;border:1px solid var(--line);border-radius:24px;background:#fff;transition:.14s ease;cursor:pointer;text-align:left;color:var(--black);-webkit-appearance:none;appearance:none}
     .burger-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:rgba(95,143,114,.75)}
     .pic{width:122px;height:122px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#eff8e9,#fffdf5);display:grid;place-items:center;font-size:2.4rem;font-weight:1100;color:var(--green2);flex:0 0 auto}
     .pic img{width:100%;height:100%;object-fit:cover;display:block}.pic img[style*="display: none"]+span{display:block}.pic span{display:none}
-    .burger-info{min-width:0}.burger-info h3{margin:0;font-size:1.35rem;line-height:1;letter-spacing:-.055em;font-weight:1100}
+    .burger-info{min-width:0}.burger-info h3{margin:0;font-size:1.35rem;line-height:1;letter-spacing:-.055em;font-weight:1100;color:var(--black)}
     .burger-info p{margin:8px 0 10px;color:var(--muted);font-size:.92rem;line-height:1.33;font-weight:720}
     .price-row{display:flex;justify-content:space-between;align-items:center;gap:10px}
     .price{display:inline-flex;padding:7px 10px;border-radius:999px;background:#f7f3ee;color:var(--black);font-weight:1100;white-space:nowrap}
@@ -84,11 +84,11 @@
     .extra-visual.extra-child img{object-fit:cover;object-position:center center;padding:0;border-radius:inherit}
     .extra-visual span{display:none;width:100%;height:100%;place-items:center}
     .extra-visual img[style*="display: none"]+span,.extra-visual.no-image span{display:grid}
-    .extra-content{min-width:0;display:grid;gap:9px}
+    .extra-content{min-width:0;display:grid;gap:9px;align-content:start}
     .extra-sub{margin:-2px 0 0;color:var(--muted);font-size:.82rem;line-height:1.3;font-weight:760}
     .option.disabled{opacity:.58;cursor:not-allowed;background:#fafafa}
     .option.disabled input{cursor:not-allowed}
-    .extra-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;font-weight:1000}.extra-top b{font-size:1.12rem;line-height:1.05;letter-spacing:-.035em}
+    .extra-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;font-weight:1000}.extra-top b{font-size:1.12rem;line-height:1.05;letter-spacing:-.035em;display:flex;align-items:center;gap:6px;min-width:0;color:var(--black)}.extra-label-text{min-width:0}.qty-inline{white-space:nowrap}
     .upsell-card{grid-template-columns:1fr;min-height:auto}
     select,input,textarea{width:100%;border:1px solid var(--line);background:#fff;color:var(--black);border-radius:16px;padding:13px 13px;outline:none;font-weight:850}
     textarea{resize:vertical;min-height:86px}select:focus,input:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(95,143,114,.18)}
@@ -227,40 +227,49 @@
 
     @media (max-width:600px) and (orientation:portrait){
       body{width:100%;min-width:0}
-      .topbar-inner{width:calc(100% - 16px);gap:7px;padding:7px 0;flex-wrap:wrap}
+      .topbar{padding-top:max(0px,env(safe-area-inset-top))}
+      .topbar-inner{width:calc(100% - 18px);gap:9px;padding:10px 0 12px;flex-wrap:wrap}
       .brand{gap:8px;flex:1 1 100%;justify-content:center}
       .brand img{width:42px;height:42px}
-      .brand span{font-size:.88rem;max-width:none;text-align:center}
-      .top-actions{width:100%;gap:7px;display:grid;grid-template-columns:minmax(0,1fr) auto}
-      .top-actions .phone-btn{display:inline-flex;min-width:0;min-height:40px;padding:9px 10px;font-size:.86rem;white-space:nowrap}
-      .cart-nav{min-height:40px;padding:9px 11px;font-size:.86rem;white-space:nowrap}
+      .brand span{font-size:.96rem;max-width:none;text-align:center}
+      .top-actions{width:100%;gap:8px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center}
+      .menu-nav{display:none}
+      .top-actions .phone-btn{display:inline-flex;min-width:0;min-height:42px;padding:10px 12px;font-size:.9rem;white-space:nowrap;justify-content:center}
+      .cart-nav{min-height:42px;padding:10px 12px;font-size:.9rem;white-space:nowrap}
 
-      .app{width:calc(100% - 16px);padding-bottom:22px}
-      .headline{margin:18px 0 16px;display:block}
+      .app{width:calc(100% - 18px);padding-bottom:22px}
+      .headline{margin:16px 0 14px;display:block}
       .hero-branding{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;text-align:center}
-      .hero-logo-shell{width:min(176px,55vw);height:auto;aspect-ratio:190/236;padding:11px;border-radius:22px}
+      .hero-logo-shell{width:min(164px,52vw);height:auto;aspect-ratio:190/236;padding:10px;border-radius:22px}
       .hero-logo{border-radius:14px}
       .brand-mini{width:100%;min-width:0}
       .brand-mini span{display:block;max-width:100%;font-size:1rem}
-      .hero-kicker{margin-bottom:7px;font-size:.69rem;letter-spacing:.07em}
-      h1{font-size:clamp(2.15rem,12vw,3.05rem);line-height:.9;letter-spacing:-.075em}
-      .headline p{margin-top:10px;font-size:.92rem;line-height:1.38}
-      .headline .badge{margin-top:12px;white-space:normal;text-align:left;max-width:100%;font-size:.88rem;padding:9px 12px}
-      .service-card{margin:0 0 15px;padding:12px 13px;border-radius:18px;font-size:.9rem;gap:5px}
+      .hero-kicker{margin-bottom:6px;font-size:.67rem;letter-spacing:.07em}
+      h1{font-size:clamp(2.05rem,11.2vw,3rem);line-height:.9;letter-spacing:-.078em}
+      .headline p{margin:9px auto 0;font-size:.9rem;line-height:1.38;max-width:310px}
+      .headline .badge{margin:12px auto 0;white-space:normal;text-align:center;max-width:100%;font-size:.87rem;padding:9px 12px}
+      .service-card{margin:0 0 14px;padding:12px 13px;border-radius:18px;font-size:.89rem;gap:4px}
 
       .layout{display:block}
-      .menu-panel,.cart{width:100%;padding:12px;border-radius:22px}
+      .menu-panel,.cart{width:100%;padding:12px 10px;border-radius:22px}
       .section-title{align-items:flex-start;flex-direction:column;gap:6px;margin-bottom:13px}
-      h2{font-size:1.72rem;line-height:1}
-      .section-sub{font-size:.86rem}
+      h2{font-size:1.7rem;line-height:1}
+      .section-sub{font-size:.84rem}
       .products,.extras-grid{grid-template-columns:minmax(0,1fr);gap:10px}
-      .burger-card,.extra-card{width:100%;grid-template-columns:82px minmax(0,1fr);gap:10px;min-height:104px;padding:9px;border-radius:18px}
-      .pic,.extra-visual{width:82px;height:82px;border-radius:15px}
-      .burger-info h3{font-size:1.08rem;line-height:1.05}
+      .burger-card,.extra-card{width:100%;grid-template-columns:88px minmax(0,1fr);gap:11px;align-items:start;min-height:auto;padding:10px;border-radius:20px}
+      .pic,.extra-visual{width:88px;height:88px;border-radius:16px}
+      .burger-info,.extra-content{display:grid;align-content:start;gap:8px}
+      .burger-info h3{font-size:1.07rem;line-height:1.05;color:var(--black)}
       .burger-info p{font-size:.8rem;line-height:1.28;-webkit-line-clamp:3}
-      .price-row,.extra-top,.line-top,.cart-head{gap:7px;min-width:0}
-      .price-row>* ,.extra-top>* ,.line-top>*{min-width:0}
-      .add,.add-btn,.qty-btn,.remove-btn,.primary,.secondary{max-width:100%}
+      .extra-top{gap:8px;align-items:center}
+      .extra-top b{font-size:.99rem;line-height:1.12}
+      .extra-sub{font-size:.79rem;line-height:1.25}
+      .price-row,.line-top,.cart-head{gap:7px;min-width:0}
+      .extra-top>*,.price-row>* ,.line-top>*{min-width:0}
+      .price{padding:6px 10px;font-size:.92rem}
+      .choose{font-size:.86rem}
+      .add,.add-btn,.add-extra,.qty-btn,.remove-btn,.primary,.secondary{max-width:100%}
+      .add-extra{min-height:42px}
       .extras-controls{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
       .extras-controls>*{width:100%;min-width:0}
       .cart{margin-top:14px}
@@ -285,12 +294,15 @@
     }
 
     @media (max-width:360px) and (orientation:portrait){
-      .brand span{max-width:102px;font-size:.8rem}
-      .cart-nav{padding:8px 9px;font-size:.79rem}
-      .burger-card,.extra-card{grid-template-columns:72px minmax(0,1fr)}
-      .pic,.extra-visual{width:72px;height:72px}
-      h1{font-size:2.05rem}
+      .brand span{max-width:102px;font-size:.82rem}
+      .top-actions .phone-btn,.cart-nav{font-size:.82rem;padding:9px 10px}
+      .burger-card,.extra-card{grid-template-columns:78px minmax(0,1fr);gap:9px}
+      .pic,.extra-visual{width:78px;height:78px}
+      .burger-info h3{font-size:1rem}
+      .extra-top b{font-size:.94rem}
+      h1{font-size:2rem}
     }
+
 </style>
 </head>
 
@@ -300,7 +312,7 @@
       <div class="brand brand-mini"><span>Click & Collect</span></div>
       <div class="top-actions">
         <a class="nav-btn phone-btn" href="tel:+33672021634">📞 06 72 02 16 34</a>
-        <button class="nav-btn" type="button" onclick="document.getElementById('burgers').scrollIntoView()">Menu</button>
+        <button class="nav-btn menu-nav" type="button" onclick="document.getElementById('burgers').scrollIntoView()">Menu</button>
         <button class="nav-btn cart-nav" type="button" onclick="openCheckout()">Panier · <span id="navCount">0</span></button>
       </div>
     </div>
@@ -450,7 +462,7 @@
     {key:"cabesto",name:"Cabesto",image:"cabesto.jpg",desc:"Pain brioché, filet de poisson pané, cheddar maturé, iceberg, sauce échaloulette."}
   ];
   const EXTRAS = [
-    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
+    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
     {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
@@ -801,7 +813,7 @@
           : `<select id="extraChoice-${idx}" disabled><option>Rupture</option></select>`)
         : "";
       const stockNote = available ? "" : `<p class="stock-note">Indisponible pour le moment</p>`;
-      return `<article class="extra-card ${available ? "" : "is-out"}">${visual}<div class="extra-content"><div class="extra-top"><b>${e.emoji} ${escapeHtml(e.label)}</b><span class="price">${euro(e.price)}</span></div>${e.sub?`<p class="extra-sub">${escapeHtml(e.sub)}</p>`:""}${choiceSelect}${stockNote}<button class="add-extra" type="button" ${available ? "" : "disabled"} onclick="window.addExtra(${idx})">${available ? "Ajouter" : "Rupture"}</button></div></article>`;
+      return `<article class="extra-card ${available ? "" : "is-out"}">${visual}<div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div>${e.sub?`<p class="extra-sub">${escapeHtml(e.sub)}</p>`:""}${choiceSelect}${stockNote}<button class="add-extra" type="button" ${available ? "" : "disabled"} onclick="window.addExtra(${idx})">${available ? "Ajouter" : "Rupture"}</button></div></article>`;
     }).join("");
   }
   window.addExtra = idx => {
