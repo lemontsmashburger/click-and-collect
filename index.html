@@ -286,9 +286,10 @@
       input,select,textarea{width:100%;min-width:0}
       .toast{bottom:max(10px,env(safe-area-inset-bottom));width:calc(100% - 16px)}
 
-      .footer-brand{min-width:0;width:100%}
-      .footer-inner{width:calc(100% - 16px)}
-      .footer-phone{white-space:normal;text-align:center}
+      .footer-inner{width:calc(100% - 16px);flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px}
+      .footer-brand{min-width:0;width:100%;justify-content:center;text-align:left}
+      .footer-links{width:100%;justify-content:center;align-items:center;text-align:center;gap:10px}
+      .footer-phone{display:inline-flex;align-items:center;justify-content:center;white-space:normal;text-align:center;margin:0 auto}
     }
 
     @media (max-width:360px) and (orientation:portrait){
