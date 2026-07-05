@@ -511,6 +511,253 @@
       }
     }
 
+
+    /* ===== DA MOBILE PORTRAIT : compacte, claire, orientée commande ===== */
+    :root{
+      --green:#f59e0b;
+      --green2:#ea580c;
+      --black:#1b120d;
+      --text:#2d2118;
+      --muted:#756252;
+      --bg:#f6eee5;
+      --white:#fffaf5;
+      --line:#ecd8c4;
+      --shadow:0 16px 34px rgba(35,20,10,.12);
+      --shadow-soft:0 10px 24px rgba(35,20,10,.08);
+    }
+
+    body{
+      background:linear-gradient(180deg,#17100c 0 178px,#f6eee5 178px 100%);
+      color:var(--text);
+    }
+    .topbar{background:rgba(23,16,12,.94);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(14px)}
+    .brand span{color:#fff}
+    .nav-btn{box-shadow:none}
+    .phone-btn{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff}
+    .cart-nav{background:#fff;color:#1b120d}
+
+    .headline{margin:12px 0 10px;display:flex;justify-content:center}
+    .hero-branding{justify-content:center;width:100%}
+    .hero-logo-shell{
+      width:138px;height:170px;padding:11px;border-radius:28px;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 18px 40px rgba(0,0,0,.28)
+    }
+    .hero-logo{background:#fff;border-radius:19px;padding:8px}
+
+    .service-card{
+      margin:0 0 14px;padding:13px 14px;border-radius:20px;
+      background:#fff8ef;border:1px solid #f1d2b2;box-shadow:var(--shadow-soft)
+    }
+    .service-card b{color:#1b120d}
+    .service-card span{color:var(--muted)}
+
+    .menu-panel,.cart{
+      border-radius:24px;border:1px solid rgba(255,255,255,.45);
+      box-shadow:var(--shadow)
+    }
+    .menu-panel{background:#fffaf5}
+    .cart{background:#1d140f;color:#fff}
+    .cart h2,.cart .total,.cart .line-top span:first-child,.cart .mut{color:#fff}
+    .cart .badge{background:rgba(255,255,255,.09);color:#fff}
+    .cart .line,.cart .total{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07)}
+    .cart .btn-primary{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff}
+    .cart .btn-light{background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.08)}
+
+    h2{color:#1d140f;letter-spacing:-.04em}
+    .burger-card,.extra-card{
+      background:linear-gradient(180deg,#fffdf9,#fff4e8);
+      border:1px solid var(--line);box-shadow:0 10px 22px rgba(40,23,12,.06)
+    }
+    .burger-info h3,.extra-top b{color:#1d140f}
+    .burger-info p,.extra-sub{color:var(--muted)}
+    .price{background:#1d140f;color:#fff}
+    .choose{color:#ea580c}
+    .add-extra,.btn-primary,.primary{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff}
+    .secondary,.btn-light{background:#fff;color:#2d2118;border:1px solid var(--line)}
+
+    .site-footer{background:#17100c;color:#fff}
+    .footer-brand strong,.footer-brand p,.footer-links a,.footer-phone{color:#fff}
+
+    @media (max-width:600px) and (orientation:portrait){
+      .topbar-inner{width:calc(100% - 16px);padding:8px 0 10px;gap:7px}
+      .brand{display:none}
+      .top-actions{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}
+      .menu-nav{display:none}
+      .top-actions .phone-btn,.cart-nav{min-height:40px;padding:9px 11px;font-size:.84rem}
+
+      .app{width:calc(100% - 14px);padding-bottom:18px}
+      .headline{margin:8px 0}
+      .hero-logo-shell{width:116px;height:144px;padding:9px;border-radius:24px}
+      .hero-logo{padding:6px;border-radius:16px}
+
+      .service-card{padding:11px 12px;margin-bottom:11px;border-radius:17px;font-size:.84rem;gap:4px}
+      .service-card div{min-width:0}
+      .service-card span{font-size:.8rem}
+
+      .layout{display:block}
+      .menu-panel,.cart{width:100%;padding:10px;border-radius:20px}
+      .section-title{margin-bottom:10px}
+      .section-title .section-sub{display:none}
+      h2{font-size:1.48rem;line-height:1}
+      .products,.extras-grid{grid-template-columns:1fr;gap:9px}
+
+      .burger-card,.extra-card{
+        grid-template-columns:84px minmax(0,1fr);gap:10px;
+        min-height:auto;padding:9px;border-radius:17px;align-items:start
+      }
+      .pic,.extra-visual{width:84px;height:84px;border-radius:14px}
+      .burger-info,.extra-content{gap:7px}
+      .burger-info h3{font-size:1.03rem;line-height:1.05}
+      .burger-info p{font-size:.77rem;line-height:1.25;-webkit-line-clamp:2;margin:5px 0 7px}
+      .extra-top b{font-size:.94rem;line-height:1.08}
+      .extra-sub{font-size:.76rem}
+      .price{padding:5px 8px;font-size:.86rem}
+      .choose{font-size:.78rem}
+      .add-extra{min-height:39px}
+
+      .cart{margin-top:12px}
+      .cart-list{max-height:none}
+      .cart-actions{display:grid;grid-template-columns:1fr;gap:8px}
+      .cart-actions .btn{width:100%}
+
+      .bottom-truck{margin-top:14px;min-height:180px;border-radius:18px}
+      .bottom-truck img{height:190px}
+
+      .modal-backdrop,.checkout-backdrop{padding:7px;align-items:flex-end}
+      .modal,.checkout{width:100%;max-height:95dvh;border-radius:20px 20px 0 0}
+      .modal-body,.checkout{padding:12px}
+      .modal-title h3,.checkout-head h3{font-size:1.35rem}
+      .modal-actions{grid-template-columns:1fr;gap:8px}
+      .form-grid{grid-template-columns:1fr;gap:9px}
+      input,select,textarea{min-height:42px}
+
+      .footer-inner,.footer-brand,.footer-links{align-items:center;text-align:center;justify-content:center}
+      .footer-inner{width:calc(100% - 16px)}
+    }
+
+
+
+    /* ===== VERSION ADOUCIE ===== */
+    :root{
+      --green:#e9a45f;
+      --green2:#c96f3b;
+      --black:#30231b;
+      --text:#4a392e;
+      --muted:#846f60;
+      --bg:#f8f1ea;
+      --white:#fffdf9;
+      --line:#eadccf;
+      --shadow:0 14px 30px rgba(55,35,22,.10);
+      --shadow-soft:0 8px 20px rgba(55,35,22,.07);
+    }
+    body{background:linear-gradient(180deg,#3b2a21 0 164px,#f8f1ea 164px 100%);color:var(--text)}
+    .topbar{background:rgba(59,42,33,.95);border-bottom:1px solid rgba(255,255,255,.08)}
+    .phone-btn{background:linear-gradient(135deg,#e9a45f,#c96f3b);box-shadow:0 10px 20px rgba(133,77,43,.18)}
+    .cart-nav{background:#fffaf5;color:#3b2a21}
+    .hero-logo-shell{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.13);box-shadow:0 14px 30px rgba(0,0,0,.18)}
+    .service-card{background:#fffaf5;border-color:#ead7c5}
+    .menu-panel{background:#fffdf9}
+    .cart{background:linear-gradient(180deg,#4a3529,#34251d);box-shadow:0 18px 38px rgba(45,28,18,.18)}
+    .burger-card,.extra-card{background:linear-gradient(180deg,#fffdf9,#fbf3eb);border-color:#eadccf;box-shadow:0 8px 18px rgba(55,35,22,.05)}
+    .burger-card:hover,.extra-card:hover{border-color:#d9b99f;box-shadow:0 12px 24px rgba(55,35,22,.08)}
+    .pic,.extra-visual{background:linear-gradient(135deg,#fbf2e8,#f4dfca)}
+    .price{background:#4a3529;color:#fffaf5}
+    .choose{color:#b86537}
+    .add-extra,.btn-primary,.primary,.cart .btn-primary{background:linear-gradient(135deg,#e9a45f,#c96f3b);box-shadow:0 9px 20px rgba(140,79,43,.14)}
+    .secondary,.btn-light{background:#fffdf9;color:#4a392e;border-color:#eadccf}
+    .site-footer{background:#3b2a21}
+
+    @media (max-width:600px) and (orientation:portrait){
+      body{background:linear-gradient(180deg,#3b2a21 0 150px,#f8f1ea 150px 100%)}
+      .hero-logo-shell{width:112px;height:139px}
+      .menu-panel,.cart{border-radius:19px}
+      .burger-card,.extra-card{border-radius:16px}
+    }
+
+
+
+    /* ===== Ajustements finaux mobile portrait ===== */
+    .site-footer{background:#3b2a21;}
+    .footer-brand b{color:#fffaf5;}
+    .footer-brand span{color:rgba(255,245,238,.78);}
+    .footer-links a{color:#fffaf5;}
+    .footer-phone{background:linear-gradient(135deg,#e9a45f,#c96f3b);color:#fffaf5;}
+
+    @media (max-width:600px) and (orientation:portrait){
+      .site-footer{background:#3b2a21;}
+      .site-footer .footer-brand{gap:6px !important;}
+      .site-footer .footer-brand b{color:#fffaf5 !important;font-size:1rem !important;}
+      .site-footer .footer-brand span{display:none !important;}
+      .site-footer .footer-links a{color:#fffaf5 !important;}
+      .site-footer .footer-phone{background:linear-gradient(135deg,#e9a45f,#c96f3b) !important;color:#fffaf5 !important;}
+
+      .cart .line{padding:11px 10px;}
+      .cart .line-top{align-items:flex-start;}
+      .cart .line-top span:first-child{font-size:.98rem;line-height:1.15;}
+      .cart .line-top span:last-child{white-space:nowrap;}
+      .cart .line-actions{justify-content:space-between;align-items:center;gap:8px;}
+      .cart .counter{margin-top:0;}
+    }
+
+
+
+    /* ===== Correction visibilité compteur ===== */
+    .cart-nav #navCount{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:22px;
+      height:22px;
+      margin-left:4px;
+      padding:0 6px;
+      border-radius:999px;
+      background:#3b2a21;
+      color:#fffaf5;
+      font-size:.82rem;
+      font-weight:1000;
+      line-height:1;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+    }
+    .cart .badge{
+      color:#fffaf5;
+      background:rgba(255,255,255,.12);
+      border-color:rgba(255,255,255,.08);
+    }
+    .cart .badge:before{background:#e9a45f;}
+
+    @media (max-width:600px) and (orientation:portrait){
+      .cart-nav #navCount{
+        min-width:20px;
+        height:20px;
+        padding:0 5px;
+        font-size:.78rem;
+      }
+    }
+
+
+
+    /* ===== Correction chiffre compteur quantité ===== */
+    .counter span{
+      color:#3b2a21 !important;
+      font-weight:1100;
+      line-height:1;
+      min-width:16px;
+      text-align:center;
+    }
+    .cart .counter{
+      background:#f7f3ee !important;
+      color:#3b2a21 !important;
+    }
+    .cart .counter button{
+      color:#3b2a21 !important;
+      background:#fff !important;
+    }
+
+    @media (max-width:600px) and (orientation:portrait){
+      .counter span{font-size:.95rem;}
+    }
+
 </style>
 </head>
 
@@ -537,16 +784,16 @@
     </header>
 
     <div class="service-card" id="serviceCard">
-      <div><b>Planning du jour</b><br><span>Chargement des horaires...</span></div>
+      <div><b>Planning du jour</b><br><span>Chargement...</span></div>
       <span id="serviceLocation"></span>
     </div>
 
     <main class="layout">
       <section class="menu-panel" id="burgers">
-        <div class="section-title"><div><h2>Burgers</h2><p class="section-sub">Clique sur un burger pour choisir la formule.</p></div></div>
+        <div class="section-title"><div><h2>Burgers</h2></div></div>
         <div class="products" id="burgerGrid"></div>
         <section class="extras">
-          <div class="section-title"><div><h2>Extras</h2><p class="section-sub">À ajouter directement au panier.</p></div></div>
+          <div class="section-title"><div><h2>Extras</h2></div></div>
           <div class="extras-grid" id="extrasGrid"></div>
         </section>
         <section class="bottom-truck"><img src="foodtruck.jpg" alt="Food truck Le Mont Smash Burger" onerror="this.style.display='none'"><div class="truck-fallback">Photo du food truck<br>foodtruck.jpg</div></section>
@@ -664,7 +911,7 @@
     {key:"cabesto",name:"Cabesto",image:"cabesto.jpg",desc:"Pain brioché, filet de poisson pané, cheddar maturé, iceberg, sauce échaloulette."}
   ];
   const EXTRAS = [
-    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
+    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:3,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
     {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
@@ -1031,7 +1278,7 @@
   window.changeQty = (id,delta) => {const item=cart.find(x=>x.id===id);if(!item)return;item.qty=Math.max(0,Number(item.qty||0)+delta);if(item.qty===0)cart=cart.filter(x=>x.id!==id);saveCart();renderCart();};
   window.removeLine = id => {cart=cart.filter(x=>x.id!==id);saveCart();renderCart();};
   window.clearCart = () => {if(!cart.length)return;if(confirm("Vider le panier ?")){cart=[];saveCart();renderCart();}};
-  function lineHtml(l){return `<div class="line"><div class="line-top"><span>${escapeHtml(l.label)}</span><span>${euro(Number(l.price||0)*Number(l.qty||0))}</span></div>${l.meta?`<div class="mut">${escapeHtml(l.meta)}</div>`:""}${l.notes?`<div class="mut">📝 ${escapeHtml(l.notes)}</div>`:""}<div class="line-actions"><div class="counter"><button type="button" onclick="window.changeQty('${l.id}', -1)">−</button><span>${l.qty}</span><button type="button" onclick="window.changeQty('${l.id}', 1)">+</button></div><button class="remove" type="button" onclick="window.removeLine('${l.id}')">Retirer</button></div></div>`;}
+  function lineHtml(l){const cleanMeta=(l.meta&&String(l.meta).trim().toLowerCase()!=="seul")?String(l.meta):"";return `<div class="line"><div class="line-top"><span>${escapeHtml(l.label)}</span><span>${euro(Number(l.price||0)*Number(l.qty||0))}</span></div>${cleanMeta?`<div class="mut">${escapeHtml(cleanMeta)}</div>`:""}${l.notes?`<div class="mut">📝 ${escapeHtml(l.notes)}</div>`:""}<div class="line-actions"><div class="counter"><button type="button" onclick="window.changeQty('${l.id}', -1)">−</button><span>${l.qty}</span><button type="button" onclick="window.changeQty('${l.id}', 1)">+</button></div><button class="remove" type="button" onclick="window.removeLine('${l.id}')">Retirer</button></div></div>`;}
   function renderCart(){
     const count=cartItemsCount();
     document.getElementById("navCount").textContent=count;
