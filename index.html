@@ -368,6 +368,149 @@
       }
     }
 
+
+    @media (max-width:600px) and (orientation:portrait){
+      #upsellModal{padding:8px;align-items:flex-end}
+      #upsellModal .modal{width:100%;max-width:100%;max-height:92dvh;overflow:auto;border-radius:22px 22px 0 0}
+      #upsellModal .modal-body{width:100%;min-width:0;padding:16px;gap:14px}
+      #upsellModal .modal-title{width:100%;min-width:0;gap:10px}
+      #upsellModal .modal-title>div{min-width:0;flex:1}
+      #upsellModal .modal-title h3{font-size:1.55rem;line-height:1}
+      #upsellModal .modal-title .mut{font-size:.88rem;line-height:1.35;overflow-wrap:anywhere}
+      #upsellModal .upsell-card{display:block;width:100%;min-width:0;min-height:0;padding:14px;border-radius:18px;grid-template-columns:1fr}
+      #upsellModal .upsell-card .extra-top{display:flex;width:100%;min-width:0;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+      #upsellModal .upsell-card .extra-top b{display:block;min-width:0;flex:1;font-size:1rem;line-height:1.2;overflow-wrap:anywhere}
+      #upsellModal .upsell-card .price{flex:0 0 auto;white-space:nowrap}
+      #upsellModal .upsell-card .mut{margin:10px 0 0;font-size:.84rem;line-height:1.35;overflow-wrap:anywhere}
+      #upsellModal .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;width:100%;min-width:0}
+      #upsellModal .modal-actions .btn{width:100%;min-width:0;min-height:46px;padding:10px 8px;font-size:.9rem;white-space:normal}
+    }
+
+    @media (max-width:360px) and (orientation:portrait){
+      #upsellModal .modal-body{padding:13px}
+      #upsellModal .modal-actions{grid-template-columns:1fr}
+      #upsellModal .upsell-card .extra-top{align-items:flex-start}
+    }
+
+
+    /* CORRECTION DEFINITIVE DE LA PETITE FENETRE TENDERS / DESSERT */
+    @media (max-width:780px){
+      #upsellModal{
+        position:fixed !important;
+        inset:0 !important;
+        width:100vw !important;
+        height:100dvh !important;
+        padding:12px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        overflow:hidden !important;
+      }
+      #upsellModal .modal{
+        width:calc(100vw - 24px) !important;
+        max-width:430px !important;
+        min-width:0 !important;
+        max-height:calc(100dvh - 24px) !important;
+        margin:0 auto !important;
+        overflow-y:auto !important;
+        overflow-x:hidden !important;
+        border-radius:22px !important;
+        box-sizing:border-box !important;
+      }
+      #upsellModal .modal-body{
+        display:flex !important;
+        flex-direction:column !important;
+        width:100% !important;
+        min-width:0 !important;
+        padding:16px !important;
+        gap:14px !important;
+        box-sizing:border-box !important;
+      }
+      #upsellModal .modal-title{
+        display:grid !important;
+        grid-template-columns:minmax(0,1fr) 40px !important;
+        width:100% !important;
+        min-width:0 !important;
+        align-items:start !important;
+        gap:10px !important;
+      }
+      #upsellModal .modal-title > div,
+      #upsellModal .modal-title h3,
+      #upsellModal .modal-title p{
+        min-width:0 !important;
+        max-width:100% !important;
+        overflow-wrap:anywhere !important;
+      }
+      #upsellModal .close{
+        width:40px !important;
+        height:40px !important;
+        min-width:40px !important;
+        padding:0 !important;
+      }
+      #upsellModal .upsell-card{
+        display:block !important;
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        min-height:0 !important;
+        padding:14px !important;
+        margin:0 !important;
+        border-radius:18px !important;
+        box-sizing:border-box !important;
+        overflow:hidden !important;
+      }
+      #upsellModal .upsell-card .extra-top{
+        display:grid !important;
+        grid-template-columns:minmax(0,1fr) auto !important;
+        width:100% !important;
+        min-width:0 !important;
+        gap:8px !important;
+        align-items:center !important;
+      }
+      #upsellModal #upsellProduct{
+        display:block !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        font-size:1rem !important;
+        line-height:1.2 !important;
+        white-space:normal !important;
+        overflow-wrap:anywhere !important;
+      }
+      #upsellModal #upsellPrice{
+        flex:none !important;
+        white-space:nowrap !important;
+        font-size:.92rem !important;
+        padding:6px 9px !important;
+      }
+      #upsellModal #upsellDesc{
+        width:100% !important;
+        max-width:100% !important;
+        margin:10px 0 0 !important;
+        font-size:.84rem !important;
+        line-height:1.35 !important;
+        white-space:normal !important;
+        overflow-wrap:anywhere !important;
+      }
+      #upsellModal .modal-actions{
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        width:100% !important;
+        min-width:0 !important;
+        gap:9px !important;
+      }
+      #upsellModal .modal-actions .btn{
+        display:flex !important;
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+        min-height:46px !important;
+        padding:11px 12px !important;
+        align-items:center !important;
+        justify-content:center !important;
+        white-space:normal !important;
+        box-sizing:border-box !important;
+      }
+    }
+
 </style>
 </head>
 
