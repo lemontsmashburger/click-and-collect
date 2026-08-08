@@ -841,7 +841,7 @@
           <label class="option"><input type="radio" name="formula" value="menu"><div><b>Menu · 13€</b><span>Burger + frites + eau. Soda +1,50€.</span></div></label>
           <label class="option"><input type="radio" name="formula" value="student"><div><b>Menu étudiant · 10€</b><span class="student-note">Burger + frites + eau. Justificatif étudiant à présenter au retrait.</span></div></label>
         </div>
-        <div id="drinkBox" style="display:none"><label>Boisson</label><select id="modalDrink"><option value="Eau">Eau</option><option value="Pepsi">Pepsi +1,50€</option><option value="Coca 0">Coca 0 +1,50€</option><option value="Orangina">Orangina +1,50€</option><option value="Ice Tea">Ice Tea +1,50€</option><option value="Oasis">Oasis +1,50€</option><option value="Eau pétillante">Eau pétillante +1,50€</option></select></div>
+        <div id="drinkBox" style="display:none"><label>Boisson</label><select id="modalDrink"><option value="Eau">Eau</option><option value="Coca">Coca +1,50€</option><option value="Coca 0">Coca 0 +1,50€</option><option value="Orangina">Orangina +1,50€</option><option value="Ice Tea">Ice Tea +1,50€</option><option value="Oasis">Oasis +1,50€</option><option value="Eau pétillante">Eau pétillante +1,50€</option></select></div>
         <div class="extras-controls">
           <div class="counter">🧀 Fromage<button type="button" onclick="changeModalCounter('cheese',-1)">−</button><span id="modalCheese">0</span><button type="button" onclick="changeModalCounter('cheese',1)">+</button></div>
           <div class="counter">🥩 Steak<button type="button" onclick="changeModalCounter('steak',-1)">−</button><span id="modalSteak">0</span><button type="button" onclick="changeModalCounter('steak',1)">+</button></div>
@@ -923,7 +923,7 @@
   // ================== STOCK MANUEL ==================
   // Le stock se gère dans l'onglet "Stock" du Google Sheet.
   // Mets disponible = TRUE ou FALSE dans le Sheet, le site se mettra à jour sans recoder.
-  const MENU_DRINK_CHOICES = ["Eau","Pepsi","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante"];
+  const MENU_DRINK_CHOICES = ["Eau","Coca","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante"];
   let stockByKey = {};
   let stockLoaded = false;
 
