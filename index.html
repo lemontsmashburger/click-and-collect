@@ -1532,6 +1532,389 @@ body{overflow-x:hidden}
 }
 </style>
 
+
+<style id="lmsb-final-fixes">
+/* =========================================================
+   CORRECTIONS FINALES — HEADER + MOBILE + COULEURS C&C
+   ========================================================= */
+
+/* HEADER : évite tout bloc blanc parasite et garde la nav lisible */
+.brand-nav{
+  width:100%;
+  overflow:visible!important;
+  isolation:isolate;
+}
+.brand-nav .topbar-inner{
+  width:min(1400px,calc(100% - 32px))!important;
+  min-height:70px!important;
+  margin:0 auto!important;
+  padding:10px 0!important;
+  box-sizing:border-box;
+  flex-wrap:nowrap;
+}
+.brand-nav .site-brand{
+  flex:0 0 auto!important;
+  min-width:0!important;
+  color:#fff!important;
+}
+.brand-nav .site-brand .brand-mark{
+  width:48px!important;
+  height:48px!important;
+  min-width:48px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:3px!important;
+  margin:0!important;
+  border-radius:10px!important;
+  background:transparent!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.brand-nav .site-brand .brand-mark img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  display:block!important;
+  background:transparent!important;
+  border-radius:7px!important;
+  box-shadow:none!important;
+}
+.brand-nav .site-brand > span:last-child{
+  display:block!important;
+  min-width:0!important;
+}
+.brand-nav .site-brand strong,
+.brand-nav .site-brand small{
+  color:#fff!important;
+}
+.brand-nav .site-brand small{
+  color:var(--brand-orange)!important;
+}
+.brand-nav .site-nav{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  justify-content:center!important;
+  gap:clamp(12px,1.8vw,22px)!important;
+  overflow:visible!important;
+}
+.brand-nav .site-nav a{
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+  color:#f5f5f5!important;
+}
+.brand-nav .site-nav a:hover{
+  color:var(--brand-orange)!important;
+}
+.brand-nav .top-actions{
+  flex:0 0 auto!important;
+}
+.brand-nav .nav-btn{
+  min-height:42px!important;
+}
+
+/* MOBILE : même logique compacte que le Click & Collect de référence */
+@media (max-width:1000px){
+  .brand-nav .topbar-inner{
+    width:calc(100% - 24px)!important;
+    min-height:0!important;
+    padding:9px 0 10px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-areas:
+      "brand actions"
+      "nav nav";
+    gap:8px 10px!important;
+    align-items:center!important;
+  }
+  .brand-nav .site-brand{grid-area:brand!important;}
+  .brand-nav .top-actions{grid-area:actions!important;}
+  .brand-nav .site-nav{
+    grid-area:nav!important;
+    display:flex!important;
+    justify-content:flex-start!important;
+    width:100%!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    gap:18px!important;
+    padding:3px 2px 4px!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .brand-nav .site-nav::-webkit-scrollbar{display:none!important}
+  .brand-nav .site-nav a{
+    font-size:11px!important;
+    letter-spacing:.01em!important;
+    padding:4px 0!important;
+  }
+  .brand-nav .menu-nav{display:none!important;}
+  .brand-nav .top-actions{
+    display:flex!important;
+    align-items:center!important;
+    gap:7px!important;
+  }
+  .brand-nav .phone-btn{
+    min-height:40px!important;
+    padding:9px 12px!important;
+    white-space:nowrap!important;
+  }
+  .brand-nav .cart-nav{
+    min-height:40px!important;
+    padding:9px 12px!important;
+    white-space:nowrap!important;
+  }
+  .brand-nav .desktop-phone{display:inline!important;}
+}
+
+@media (max-width:600px) and (orientation:portrait){
+  .brand-nav .topbar-inner{
+    width:calc(100% - 18px)!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:7px 8px!important;
+    padding:8px 0 9px!important;
+  }
+  .brand-nav .site-brand .brand-mark{
+    width:42px!important;
+    height:42px!important;
+    min-width:42px!important;
+    border-radius:9px!important;
+  }
+  .brand-nav .site-brand strong{font-size:13px!important;}
+  .brand-nav .site-brand small{
+    font-size:7px!important;
+    letter-spacing:.22em!important;
+  }
+  .brand-nav .top-actions{gap:6px!important;}
+  .brand-nav .phone-btn{
+    min-height:40px!important;
+    padding:9px 10px!important;
+    font-size:.78rem!important;
+  }
+  .brand-nav .cart-nav{
+    min-height:40px!important;
+    padding:9px 10px!important;
+    font-size:.78rem!important;
+  }
+  .brand-nav .site-nav{
+    gap:16px!important;
+    padding-left:1px!important;
+    padding-right:1px!important;
+  }
+  .brand-nav .site-nav a{
+    font-size:10.5px!important;
+  }
+
+  /* Site vitrine : rythme plus proche du Click & Collect de référence */
+  .brand-hero{
+    min-height:calc(100svh - 112px)!important;
+    padding:48px 16px 58px!important;
+  }
+  .hero-logo-frame{
+    width:min(150px,42vw)!important;
+    height:min(150px,42vw)!important;
+    padding:10px!important;
+    border-radius:24px!important;
+    margin-bottom:18px!important;
+  }
+  .brand-hero h1{
+    font-size:clamp(42px,13vw,58px)!important;
+    line-height:.9!important;
+    margin:14px 0!important;
+  }
+  .brand-hero p{
+    font-size:16px!important;
+    line-height:1.45!important;
+    margin-bottom:22px!important;
+  }
+  .hero-actions{
+    width:100%!important;
+    flex-direction:column!important;
+    gap:9px!important;
+  }
+  .hero-actions .brand-cta{
+    width:100%!important;
+    min-height:48px!important;
+    padding:0 16px!important;
+  }
+  .brand-section{
+    padding:62px 18px!important;
+  }
+  .story-grid{
+    gap:30px!important;
+    margin-top:25px!important;
+  }
+  .brand-section h2{
+    font-size:clamp(36px,11vw,50px)!important;
+  }
+  .story-copy p{
+    font-size:15px!important;
+    line-height:1.65!important;
+    margin-bottom:18px!important;
+  }
+  .story-copy .lead{
+    font-size:20px!important;
+  }
+  .story-highlight{
+    margin-top:26px!important;
+    padding:24px 0!important;
+    font-size:18px!important;
+  }
+  .story-strip{
+    margin-top:28px!important;
+    gap:9px!important;
+    font-size:9px!important;
+  }
+  .section-heading{
+    display:block!important;
+  }
+  .section-heading>p{
+    margin-top:16px!important;
+    font-size:14px!important;
+    line-height:1.55!important;
+  }
+  .why-grid{
+    margin-top:28px!important;
+  }
+  .why-grid article{
+    padding:22px 0 24px 60px!important;
+  }
+  .why-icon{
+    width:42px!important;
+    height:42px!important;
+    top:20px!important;
+    font-size:20px!important;
+  }
+  .why-grid article:after{left:60px!important;}
+  .why-grid h3{font-size:17px!important;}
+  .why-grid p{font-size:13px!important;line-height:1.55!important;}
+  .reviews-grid{
+    margin-top:28px!important;
+    min-height:0!important;
+  }
+  .review-card{
+    padding:19px!important;
+    border-radius:20px!important;
+  }
+  .review-card p{
+    font-size:13px!important;
+    line-height:1.5!important;
+  }
+  .private-section{
+    display:block!important;
+  }
+  .private-copy>p{
+    font-size:15px!important;
+    line-height:1.6!important;
+  }
+  .private-copy h2{
+    font-size:clamp(38px,11vw,55px)!important;
+  }
+  .private-proof{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .quote-box{
+    margin-top:28px!important;
+    padding:20px!important;
+    border-radius:20px!important;
+  }
+  .form-row{grid-template-columns:1fr!important;}
+  .final-cta{
+    padding:55px 18px!important;
+  }
+}
+
+/* =========================================================
+   CLICK & COLLECT : uniquement le rendu visuel de sélection
+   Reprise de la palette du fichier de référence :
+   #e9a45f / #c96f3b / #4a392e / #fffdf9
+   ========================================================= */
+#burgerModal .option.active{
+  border-color:#e9a45f!important;
+  background:linear-gradient(180deg,#fffdf9,#fbf3eb)!important;
+  box-shadow:0 0 0 4px rgba(233,164,95,.20)!important;
+}
+#burgerModal .option input{
+  accent-color:#c96f3b!important;
+}
+#burgerModal .option:hover{
+  border-color:#d9b99f!important;
+}
+#burgerModal .modal-actions .btn-primary{
+  background:linear-gradient(135deg,#e9a45f,#c96f3b)!important;
+  color:#fffaf5!important;
+  box-shadow:0 9px 20px rgba(140,79,43,.14)!important;
+}
+#burgerModal .close{
+  background:#fffdf9!important;
+  color:#4a392e!important;
+}
+</style>
+
+
+<style id="lmsb-header-mobile-final-fix">
+/* Correction finale : aucun grand rectangle blanc autour de la navigation mobile */
+@media (max-width:600px){
+  .brand-nav .topbar-inner{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-items:center!important;
+    width:100%!important;
+    min-height:64px!important;
+    padding:7px 12px 8px!important;
+    gap:7px 10px!important;
+  }
+  .brand-nav .site-brand{
+    flex:1 1 auto!important;
+    min-width:0!important;
+  }
+  .brand-nav .top-actions{
+    flex:0 0 auto!important;
+  }
+  .brand-nav .site-nav{
+    position:static!important;
+    left:auto!important; right:auto!important; top:auto!important;
+    z-index:auto!important;
+    order:3!important;
+    flex:0 0 100%!important;
+    width:100%!important;
+    min-width:0!important;
+    display:flex!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    gap:18px!important;
+    padding:2px 0 3px!important;
+    margin:0!important;
+    background:transparent!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    transform:none!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .brand-nav .site-nav::-webkit-scrollbar{display:none!important}
+  .brand-nav .site-nav a{
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+    color:#f5f5f5!important;
+    background:transparent!important;
+    border:0!important;
+    padding:4px 0!important;
+    font-size:11px!important;
+  }
+  .brand-nav .site-brand .brand-mark{
+    background:transparent!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+}
+
+/* Le header Click & Collect interne ne doit jamais générer de bloc blanc invisible */
+.app .headline{display:none!important;background:transparent!important;visibility:hidden!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important;}
+</style>
+
 </head>
 
 <body>
@@ -1775,7 +2158,7 @@ body{overflow-x:hidden}
         <div class="extra-card upsell-card" style="box-shadow:none">
           <div class="extra-top">
             <b id="upsellProduct">🍗 Tenders maison x2</b>
-            <span class="price" id="upsellPrice">4,00 €</span>
+            <span class="price" id="upsellPrice">3,00 €</span>
           </div>
           <p class="mut" id="upsellDesc">Parfait à partager... ou pas.</p>
         </div>
@@ -1819,7 +2202,7 @@ body{overflow-x:hidden}
     {key:"cabesto",name:"Cabesto",image:"cabesto.jpg",desc:"Pain brioché, filet de poisson pané, cheddar maturé, iceberg, sauce échaloulette."}
   ];
   const EXTRAS = [
-    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
+    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:3,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
     {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
