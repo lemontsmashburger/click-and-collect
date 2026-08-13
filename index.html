@@ -1352,6 +1352,9 @@ body:has(.app){
 }
 </style>
 
+<style id="mobile-nav-visible">
+@media(max-width:1000px){.site-nav{display:flex!important}}
+</style>
 
 <style id="lmsb-v18-mobile-polish">
 /* V1.8 — mobile-first polish, même DA / couleurs */
@@ -1480,6 +1483,7 @@ body{overflow-x:hidden}
 
   .section-heading>p{font-size:14px!important;line-height:1.55}
   .why-grid article{
+    opacity:1!important;
     min-height:0!important;
     padding:22px!important;
     border-radius:22px!important;
