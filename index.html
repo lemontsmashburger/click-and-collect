@@ -2270,7 +2270,7 @@ body{overflow-x:hidden}
     {key:"cabesto",name:"Cabesto",image:"cabesto.jpg",desc:"Pain brioché, filet de poisson pané, cheddar maturé, iceberg, sauce échaloulette."}
   ];
   const EXTRAS = [
-    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:3,image:"tenders.jpg"},
+    {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
     {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
@@ -2675,7 +2675,7 @@ body{overflow-x:hidden}
     const type = upsellQueue.shift();
     if(type === "tenders"){
       if(!isStockAvailable("extra:tenders")){stockToast(["extra:tenders"]);showNextUpsell();return;}
-      cart.push({id:uid(),type:"extra",label:"🍗 Tenders maison x2",meta:"",notes:"",price:3,qty:1,baseItems:1,comped:false});
+      cart.push({id:uid(),type:"extra",label:"🍗 Tenders maison x2",meta:"",notes:"",price:4,qty:1,baseItems:1,comped:false});
     } else {
       if(!isStockAvailable("extra:dessert")){stockToast(["extra:dessert"]);showNextUpsell();return;}
       cart.push({id:uid(),type:"extra",label:"🧁 Dessert maison",meta:"",notes:"",price:3,qty:1,baseItems:1,comped:false});
