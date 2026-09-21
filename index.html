@@ -1996,6 +1996,42 @@ body{overflow-x:hidden}
   .top-actions .phone-btn{display:none!important}
 }
 </style>
+
+<style>
+  /* Bouton flottant Instagram — accès rapide à nos emplacements / actualités */
+  .find-us-float{
+    position:fixed;
+    right:18px;
+    bottom:22px;
+    z-index:145;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    min-height:48px;
+    padding:11px 16px;
+    border:1px solid rgba(255,255,255,.72);
+    border-radius:999px;
+    background:linear-gradient(135deg,#3f7056,#5f8f72);
+    color:#fff;
+    text-decoration:none;
+    font-weight:1000;
+    box-shadow:0 16px 36px rgba(36,53,43,.24);
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .find-us-float:hover{transform:translateY(-2px);box-shadow:0 20px 42px rgba(36,53,43,.30)}
+  .find-us-float:focus-visible{outline:3px solid #eecb76;outline-offset:3px}
+  .find-us-float .find-us-icon{font-size:1.15rem;line-height:1}
+  @media(max-width:600px){
+    .find-us-float{
+      right:10px;
+      bottom:74px;
+      min-height:44px;
+      padding:10px 13px;
+      font-size:.86rem;
+      max-width:calc(100vw - 20px);
+    }
+  }
+</style>
 </head>
 
 <body>
@@ -2019,6 +2055,11 @@ body{overflow-x:hidden}
       </div>
     </div>
   </div>
+
+  <a class="find-us-float" href="https://www.instagram.com/lemontsmashburger?stkn=MTVvbTh4amVsNGJvbg==" target="_blank" rel="noopener noreferrer" aria-label="Où nous trouver ? Ouvrir Instagram Le Mont Smash Burger">
+    <span class="find-us-icon" aria-hidden="true">📍</span>
+    <span>Où nous trouver ?</span>
+  </a>
 
   <main id="accueil" class="brand-site">
     <section class="brand-hero">
@@ -2259,7 +2300,7 @@ body{overflow-x:hidden}
         <div><label>Nom / prénom</label><input id="customerName" autocomplete="name" placeholder="Nom / prénom"></div>
         <div><label>Téléphone</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="06..."></div>
         <div class="full"><label>Adresse e-mail</label><input id="customerEmail" type="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
-        <div><label>Heure</label><input id="pickupTime" type="time"></div>
+        <div><label>Heure</label><select id="pickupTime" aria-label="Heure de retrait"></select></div>
         <div><label>Paiement</label><select id="paymentHint"><option value="CB sur place">CB</option><option value="Espèces sur place">Espèces</option></select></div>
         <div class="full"><label>Notes</label><textarea id="globalNotes" placeholder="Notes pour la commande"></textarea></div>
       </div>
@@ -2285,7 +2326,7 @@ body{overflow-x:hidden}
   const EXTRAS = [
     {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
-    {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
+    {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
     {key:"magnumChoco",label:"Magnum double chocolat",emoji:"🍦",price:3,image:"magnum-choco.jpg"},
     {key:"magnumCara",label:"Magnum double caramel",emoji:"🍦",price:3,image:"magnum-cara.jpg"},
@@ -2295,7 +2336,7 @@ body{overflow-x:hidden}
   // ================== STOCK MANUEL ==================
   // Le stock se gère dans l'onglet "Stock" du Google Sheet.
   // Mets disponible = TRUE ou FALSE dans le Sheet, le site se mettra à jour sans recoder.
-  const MENU_DRINK_CHOICES = ["Eau","Coca","Coca 0","Orangina","Ice Tea","Oasis","Eau pétillante"];
+  const MENU_DRINK_CHOICES = ["Eau","Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante"];
   let stockByKey = {};
   let stockLoaded = false;
 
@@ -2569,7 +2610,9 @@ body{overflow-x:hidden}
     const service=currentService(date);
     if(!service || !timeStr)return false;
     const selected=timeToMinutes(timeStr);
-    return selected>=timeToMinutes(service.pickupStart)&&selected<=timeToMinutes(service.pickupEnd);
+    return selected>=timeToMinutes(service.pickupStart)
+      && selected<=timeToMinutes(service.pickupEnd)
+      && selected%15===0;
   }
   function isStudentOfferAvailableNow(date=new Date()){
     return isBetweenMinutes(nowMinutes(date),STUDENT_MENU_WINDOW.start,STUDENT_MENU_WINDOW.end);
@@ -2594,21 +2637,24 @@ body{overflow-x:hidden}
   function updatePickupConstraints(){
     const input=document.getElementById("pickupTime"),service=currentService();
     if(!input || !service)return;
-    input.min=service.pickupStart;
-    input.max=service.pickupEnd;
+    const previous=input.value;
+    const start=Math.ceil(timeToMinutes(service.pickupStart)/15)*15;
+    const end=Math.floor(timeToMinutes(service.pickupEnd)/15)*15;
+    const slots=[];
+    for(let minute=start;minute<=end;minute+=15){slots.push(minutesToTime(minute));}
+    input.innerHTML=slots.map(slot=>`<option value="${slot}">${slot.replace(":","h")}</option>`).join("");
+    if(slots.includes(previous))input.value=previous;
   }
   function nextDefaultPickupTime(){
     const service=currentService();
     if(!service)return "";
     const d=new Date();
     d.setMinutes(d.getMinutes()+25);
-    const rounded=Math.ceil(d.getMinutes()/5)*5;
-    d.setMinutes(rounded);
-    if(d.getMinutes()>=60){d.setHours(d.getHours()+1);d.setMinutes(0);}
-    const suggested=nowMinutes(d);
-    const start=timeToMinutes(service.pickupStart),end=timeToMinutes(service.pickupEnd);
-    if(suggested<start)return service.pickupStart;
-    if(suggested>end)return service.pickupEnd;
+    const suggested=Math.ceil(nowMinutes(d)/15)*15;
+    const start=Math.ceil(timeToMinutes(service.pickupStart)/15)*15;
+    const end=Math.floor(timeToMinutes(service.pickupEnd)/15)*15;
+    if(suggested<start)return minutesToTime(start);
+    if(suggested>end)return minutesToTime(end);
     return minutesToTime(suggested);
   }
   function updateStudentOptionAvailability(){
@@ -2769,7 +2815,7 @@ body{overflow-x:hidden}
     if(!isOrderingOpenNow()){const msg=serviceMessage();toast(msg.text || "Commandes fermées pour le moment");return;}
     if(!isPickupTimeAllowed(pickup)){
       const service=currentService();
-      toast(service?`Choisis une heure de retrait entre ${service.pickupStart} et ${service.pickupEnd}.`:"Click & Collect fermé aujourd'hui");
+      toast(service?`Choisis un créneau de 15 min entre ${service.pickupStart} et ${service.pickupEnd}.`:"Click & Collect fermé aujourd'hui");
       return;
     }
     if(cart.some(l=>l.mode==="student") && !isStudentPickupAllowed(pickup)){
@@ -2893,7 +2939,7 @@ body{overflow-x:hidden}
   document.getElementById("pickupTime").addEventListener("change",()=>{
     if(!isPickupTimeAllowed(document.getElementById("pickupTime").value)){
       const service=currentService();
-      if(service)toast(`Retrait possible entre ${service.pickupStart} et ${service.pickupEnd}.`);
+      if(service)toast(`Choisis un créneau de 15 min entre ${service.pickupStart} et ${service.pickupEnd}.`);
     }
   });
   renderBurgers();renderExtras();renderCart();renderServiceCard();initPickupTime();loadStock();
