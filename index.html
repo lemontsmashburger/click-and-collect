@@ -2330,9 +2330,6 @@ body{overflow-x:hidden}
     6: {label:"Samedi soir", location:"Parking du Cabesto, LORIENT", orderStart:"16:30", pickupStart:"19:00", pickupEnd:"21:45"}
   };
 
-  // Menu étudiant : uniquement le midi.
-  // Si l'offre change, ajuste juste ces deux heures.
-  const STUDENT_MENU_WINDOW = {start:"10:00", end:"13:45"};
   const CART_KEY = "lmsb_click_cart_v7";
   const oldCart = JSON.parse(localStorage.getItem("lmsb_click_cart_v6") || "[]");
   const removedOldStudent = !localStorage.getItem(CART_KEY) && oldCart.some(l => l.mode === "student");
@@ -2567,7 +2564,6 @@ body{overflow-x:hidden}
   function minutesToTime(total){const h=Math.floor(total/60),m=total%60;return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");}
   function nowMinutes(date=new Date()){return date.getHours()*60+date.getMinutes();}
   function currentService(date=new Date()){return SERVICE_SCHEDULE[date.getDay()] || null;}
-  function isBetweenMinutes(value,start,end){return value>=timeToMinutes(start)&&value<=timeToMinutes(end);}
   function isOrderingOpenNow(date=new Date()){
     const service=currentService(date);
     if(!service)return false;
@@ -2585,10 +2581,6 @@ body{overflow-x:hidden}
       && pickupSlots && pickupSlots.date===new Intl.DateTimeFormat("en-CA", {timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit"}).format(date)
       && !pickupSlots.unavailable.includes(timeStr);
   }
-  function isStudentOfferAvailableNow(date=new Date()){
-    return isBetweenMinutes(nowMinutes(date),STUDENT_MENU_WINDOW.start,STUDENT_MENU_WINDOW.end);
-  }
-  function isStudentPickupAllowed(timeStr){return isBetweenMinutes(timeToMinutes(timeStr),STUDENT_MENU_WINDOW.start,STUDENT_MENU_WINDOW.end);}
   function serviceMessage(date=new Date()){
     const service=currentService(date);
     if(!service)return {open:false,title:"Fermé aujourd'hui",text:"Le Click & Collect n'est pas disponible aujourd'hui.",location:""};
@@ -2658,14 +2650,13 @@ body{overflow-x:hidden}
     })();
     return pickupSlotsRequest;
   }
-  function updateStudentOptionAvailability(){renderSpecialMenus();}
   function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart));}
   function calcTotal(){return cart.reduce((s,l)=>s+Number(l.price||0)*Number(l.qty||0),0);}
   function cartItemsCount(){return cart.reduce((s,l)=>s+Number(l.qty||0),0);}
   function currentFormula(){const c=document.querySelector('input[name="formula"]:checked');return c?c.value:"solo";}
   function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0);let price=mode==="menu"?PRICES.menu:PRICES.burger;if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
   function updateModalPrice(){const mode=currentFormula();document.getElementById("drinkBox").style.display=mode==="menu"?"block":"none";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
-  window.openBurgerModal = idx => {activeBurgerIndex=idx;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateStudentOptionAvailability();updateModalPrice();document.getElementById("burgerModal").classList.add("active");};
+  window.openBurgerModal = idx => {activeBurgerIndex=idx;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateModalPrice();document.getElementById("burgerModal").classList.add("active");};
   window.closeBurgerModal = () => document.getElementById("burgerModal").classList.remove("active");
   window.changeModalCounter = (type,delta) => {const id=type==="cheese"?"modalCheese":"modalSteak";const el=document.getElementById(id);el.textContent=String(Math.max(0,Number(el.textContent||0)+delta));updateModalPrice();};
   window.addBurgerFromModal = () => {if(activeBurgerIndex==null)return;const b=BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
@@ -2738,14 +2729,14 @@ body{overflow-x:hidden}
   function renderSpecialMenus(){
     document.getElementById("specialMenusGrid").innerHTML=SPECIAL_MENUS.map((e,idx)=>{
       const available=e.key==="student"
-        ? isStudentOfferAvailableNow() && isStockAvailable("burger:cheese") && isStockAvailable("drink:Eau")
+        ? isStockAvailable("burger:cheese") && isStockAvailable("drink:Eau")
         : isExtraAvailable(e);
       const choices=e.choices?availableChoicesForExtra(e):[];
       const choiceSelect=e.choices
         ? `<select id="specialChoice-${idx}" aria-label="Choix menu enfant" ${choices.length?"":"disabled"}>${choices.length?choices.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join(""):"<option>Rupture</option>"}</select>`
         : "";
       const note=!available
-        ? `<p class="stock-note">${e.key==="student"&&!isStudentOfferAvailableNow()?`Disponible le midi de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`:"Indisponible pour le moment"}</p>`
+        ? `<p class="stock-note">Indisponible pour le moment</p>`
         : "";
       return `<article class="extra-card ${available?"":"is-out"}"><div class="extra-visual extra-${e.key}"><img src="${escapeHtml(e.image)}" alt="${escapeHtml(e.label)}" loading="lazy" onerror="this.style.display='none'"><span>${e.emoji}</span></div><div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div><p class="extra-sub">${escapeHtml(e.sub)}</p>${choiceSelect}${note}<button class="add-extra" type="button" ${available?"":"disabled"} onclick="window.addSpecialMenu(${idx})">${available?"Ajouter":"Indisponible"}</button></div></article>`;
     }).join("");
@@ -2753,7 +2744,6 @@ body{overflow-x:hidden}
   window.addSpecialMenu=idx=>{
     const e=SPECIAL_MENUS[idx];
     if(e.key==="student"){
-      if(!isStudentOfferAvailableNow()){toast("Menu étudiant disponible uniquement le midi.");return;}
       const missing=["burger:cheese","drink:Eau"].filter(key=>!isStockAvailable(key));
       if(missing.length){stockToast(missing);loadStock();return;}
       cart.push({id:uid(),type:"student",mode:"student",stockKey:"burger:cheese",label:"🎓 Menu étudiant",meta:"Cheese + frites + Eau",notes:"Justificatif étudiant à présenter au retrait",price:PRICES.student,qty:1,baseItems:3,comped:false});
@@ -2837,10 +2827,6 @@ body{overflow-x:hidden}
     if(!isPickupTimeAllowed(pickup)){
       const service=currentService();
       toast(service?`Choisis un créneau de 15 min entre ${service.pickupStart} et ${service.pickupEnd}.`:"Click & Collect fermé aujourd'hui");
-      return;
-    }
-    if(cart.some(l=>l.mode==="student") && !isStudentPickupAllowed(pickup)){
-      toast(`Menu étudiant uniquement disponible les midis de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`);
       return;
     }
 
@@ -2961,7 +2947,7 @@ body{overflow-x:hidden}
   }
   function initPickupTime(){loadPickupSlots();}
   document.querySelectorAll('input[name="formula"]').forEach(input=>input.addEventListener("change",updateModalPrice));
-  document.querySelectorAll(".option").forEach(label=>label.addEventListener("click",()=>{const input=label.querySelector("input");if(input.disabled){toast(`Offre uniquement disponible les midis de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`);return;}input.checked=true;updateModalPrice();}));
+  document.querySelectorAll(".option").forEach(label=>label.addEventListener("click",()=>{const input=label.querySelector("input");if(input.disabled)return;input.checked=true;updateModalPrice();}));
   document.getElementById("modalDrink").addEventListener("change",()=>{updateModalDrinkOptions();updateModalPrice();});
   document.getElementById("burgerModal").addEventListener("click",e=>{if(e.target.id==="burgerModal")closeBurgerModal();});
   document.getElementById("upsellModal").addEventListener("click",e=>{if(e.target.id==="upsellModal")skipUpsell();});document.getElementById("checkoutModal").addEventListener("click",e=>{if(e.target.id==="checkoutModal")closeCheckout();});
@@ -2974,7 +2960,7 @@ body{overflow-x:hidden}
   });
   renderBurgers();renderExtras();renderCart();renderServiceCard();initPickupTime();loadStock();
   if(removedOldStudent)toast("Le menu étudiant a changé : ajoute-le à nouveau dans Menus spéciaux.");
-  setInterval(()=>{renderServiceCard();updateStudentOptionAvailability();loadStock();loadPickupSlots();},60000);
+  setInterval(()=>{renderServiceCard();loadStock();loadPickupSlots();},60000);
 })();
 </script>
 <script>
