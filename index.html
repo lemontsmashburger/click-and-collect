@@ -1997,41 +1997,6 @@ body{overflow-x:hidden}
 }
 </style>
 
-<style>
-  /* Bouton flottant Instagram — accès rapide à nos emplacements / actualités */
-  .find-us-float{
-    position:fixed;
-    right:18px;
-    bottom:22px;
-    z-index:145;
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    min-height:48px;
-    padding:11px 16px;
-    border:1px solid rgba(255,255,255,.72);
-    border-radius:999px;
-    background:linear-gradient(135deg,#3f7056,#5f8f72);
-    color:#fff;
-    text-decoration:none;
-    font-weight:1000;
-    box-shadow:0 16px 36px rgba(36,53,43,.24);
-    transition:transform .16s ease, box-shadow .16s ease;
-  }
-  .find-us-float:hover{transform:translateY(-2px);box-shadow:0 20px 42px rgba(36,53,43,.30)}
-  .find-us-float:focus-visible{outline:3px solid #eecb76;outline-offset:3px}
-  .find-us-float .find-us-icon{font-size:1.15rem;line-height:1}
-  @media(max-width:600px){
-    .find-us-float{
-      right:10px;
-      bottom:74px;
-      min-height:44px;
-      padding:10px 13px;
-      font-size:.86rem;
-      max-width:calc(100vw - 20px);
-    }
-  }
-</style>
 </head>
 
 <body>
@@ -2056,10 +2021,6 @@ body{overflow-x:hidden}
     </div>
   </div>
 
-  <a class="find-us-float" href="https://www.instagram.com/lemontsmashburger?stkn=MTVvbTh4amVsNGJvbg==" target="_blank" rel="noopener noreferrer" aria-label="Où nous trouver ? Ouvrir Instagram Le Mont Smash Burger">
-    <span class="find-us-icon" aria-hidden="true">📍</span>
-    <span>Où nous trouver ?</span>
-  </a>
 
   <main id="accueil" class="brand-site">
     <section class="brand-hero">
@@ -2119,7 +2080,7 @@ body{overflow-x:hidden}
 
     <section id="carte" class="brand-section menu-intro">
       <div class="section-heading"><div><div class="section-kicker">À TABLE</div><h2>Découvrez<br><em>la carte</em></h2></div><a class="brand-cta primary" href="#burgers">Voir les burgers ↓</a></div>
-      <p class="menu-intro-copy">Nos burgers, frites, tenders et desserts sont disponibles à la commande. Cliquez sur un burger pour choisir votre formule.</p>
+      <p class="menu-intro-copy">Nos burgers, menus spéciaux, frites, tenders et desserts sont disponibles à la commande. Cliquez sur un burger pour choisir votre formule.</p>
     </section>
 
     <section id="avis" class="brand-section reviews-section">
@@ -2188,6 +2149,10 @@ body{overflow-x:hidden}
       <section class="menu-panel" id="burgers">
         <div class="section-title"><div><h2>Burgers</h2><p class="section-sub">Clique sur un burger pour choisir la formule.</p></div></div>
         <div class="products" id="burgerGrid"></div>
+        <section class="extras special-menus">
+          <div class="section-title"><div><h2>Menus spéciaux</h2><p class="section-sub">Menus enfant et étudiant.</p></div></div>
+          <div class="extras-grid" id="specialMenusGrid"></div>
+        </section>
         <section class="extras">
           <div class="section-title"><div><h2>Extras</h2><p class="section-sub">À ajouter directement au panier.</p></div></div>
           <div class="extras-grid" id="extrasGrid"></div>
@@ -2233,15 +2198,17 @@ body{overflow-x:hidden}
         <div class="modal-title"><div><h3 id="modalName">Burger</h3><p class="mut" id="modalDesc"></p></div><button class="close" type="button" onclick="closeBurgerModal()">×</button></div>
         <div class="option-list" id="formulaOptions">
           <label class="option active"><input type="radio" name="formula" value="solo" checked><div><b>Burger seul · 11€</b><span>Le burger uniquement.</span></div></label>
-          <label class="option"><input type="radio" name="formula" value="menu"><div><b>Menu · 13€</b><span>Burger + frites + eau / soda (+1.5€).</span></div></label>
-          <label class="option"><input type="radio" name="formula" value="student"><div><b>Menu étudiant · 10€</b><span class="student-note">Burger + frites + eau / soda (+1.5€) · justificatif étudiant à présenter au retrait.</span></div></label>
+          <label class="option"><input type="radio" name="formula" value="menu"><div><b>Menu burger + frites · 13€</b><span>Sans boisson · avec eau +0,50 € · avec soda +1,50 €.</span></div></label>
         </div>
 
         <div id="drinkBox" class="drink-choice-box" style="display:none">
           <label>Boisson</label>
           <div class="drink-main-buttons" role="group" aria-label="Choix de la boisson">
-            <button id="drinkWaterBtn" class="drink-main-btn active" type="button" onclick="selectMenuDrinkType('water')">
-              <span>Eau</span><small>incluse</small>
+            <button id="drinkNoneBtn" class="drink-main-btn active" type="button" onclick="selectMenuDrinkType('none')">
+              <span>Sans boisson</span><small>13 €</small>
+            </button>
+            <button id="drinkWaterBtn" class="drink-main-btn" type="button" onclick="selectMenuDrinkType('water')">
+              <span>Eau</span><small>+0,50 €</small>
             </button>
             <button id="drinkSodaBtn" class="drink-main-btn" type="button" onclick="selectMenuDrinkType('soda')">
               <span>Soda</span><small>+1,50 €</small>
@@ -2252,7 +2219,7 @@ body{overflow-x:hidden}
 
           <!-- Select conservé pour la logique panier / stock existante. -->
           <select id="modalDrink" class="sr-only-select" aria-hidden="true" tabindex="-1">
-            <option value="Eau">Eau</option>
+            <option value="">Sans boisson</option><option value="Eau">Eau</option>
           </select>
         </div>
         <div class="extras-controls">
@@ -2300,7 +2267,7 @@ body{overflow-x:hidden}
         <div><label>Nom / prénom</label><input id="customerName" autocomplete="name" placeholder="Nom / prénom"></div>
         <div><label>Téléphone</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="06..."></div>
         <div class="full"><label>Adresse e-mail</label><input id="customerEmail" type="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
-        <div><label>Heure</label><select id="pickupTime" aria-label="Heure de retrait"></select></div>
+        <div><label>Heure</label><select id="pickupTime" aria-label="Heure de retrait"></select><small id="pickupAvailability" role="status" aria-live="polite">Chargement des créneaux...</small></div>
         <div><label>Paiement</label><select id="paymentHint"><option value="CB sur place">CB</option><option value="Espèces sur place">Espèces</option></select></div>
         <div class="full"><label>Notes</label><textarea id="globalNotes" placeholder="Notes pour la commande"></textarea></div>
       </div>
@@ -2314,11 +2281,11 @@ body{overflow-x:hidden}
 <script>
 (() => {
   const LIVE_URL = "https://script.google.com/macros/s/AKfycbym3Ks7FXqoD9-RQI0ioC_mhdhx44-A4nY4HhixpqcOg2Mb2gMKv6gKa2kT3Va5it2H_A/exec";
-  const PRICES = {burger:11,menu:13,student:10,child:8.5,soda:1.5,supCheese:2,supSteak:2};
+  const PRICES = {burger:11,menu:13,water:0.5,soda:1.5,student:10,child:8.5,supCheese:2,supSteak:2};
   const BURGERS = [
-    {key:"yaute",name:"Yaute",image:"yaute.jpg",desc:"Pain brioché, 2 steaks smash, raclette IGP, oignons caramélisés, lardon volaille, iceberg, sauce D."},
+    {key:"yaute",name:"Yaute",image:"yaute.jpg",desc:"Pain brioché, 2 steaks smash, raclette de Savoie IGP, oignons rouges et caramélisés, iceberg, sauce D."},
     {key:"chickAvo",name:"Chick’Avo",image:"chick-avo.jpg",desc:"Pain brioché, 2 tenders maison, cheddar maturé, purée d’avocat, oignons rouges, iceberg, sauce D."},
-    {key:"cheese",name:"Cheese",image:"cheese.jpg",desc:"Pain brioché, 2 steaks smash, cheddar maturé, oignons rouges, cornichons, iceberg, moutarde/ketchup."},
+    {key:"cheese",name:"Cheese",image:"cheese.jpg",desc:"Pain brioché, 2 steaks smash, cheddar maturé, oignons rouges, iceberg, moutarde/ketchup."},
     {key:"rebloch",name:"Rebloch",image:"rebloch.jpg",desc:"Pain brioché, 2 steaks smash, reblochon AOP, oignons caramélisés, lardon volaille, iceberg, sauce H."},
     {key:"oMyGoat",name:"Ô My Goat",image:"o-my-goat.jpg",desc:"Pain brioché, 2 steaks smash, chèvre, oignons caramélisés/rouge, iceberg, sauce miel/moutarde."},
     {key:"cabesto",name:"Cabesto",image:"cabesto.jpg",desc:"Pain brioché, filet de poisson pané, cheddar maturé, iceberg, sauce échaloulette."}
@@ -2329,8 +2296,11 @@ body{overflow-x:hidden}
     {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
     {key:"magnumChoco",label:"Magnum double chocolat",emoji:"🍦",price:3,image:"magnum-choco.jpg"},
-    {key:"magnumCara",label:"Magnum double caramel",emoji:"🍦",price:3,image:"magnum-cara.jpg"},
-    {key:"child",label:"Menu enfant",emoji:"👶",price:8.5,image:"enfant.jpg",sub:"Pain brioché, steak smash fin, cheddar maturé, salade iceberg, ketchup.",choices:["Eau","Compote"]}
+    {key:"magnumCara",label:"Magnum double caramel",emoji:"🍦",price:3,image:"magnum-cara.jpg"}
+  ];
+  const SPECIAL_MENUS = [
+    {key:"student",label:"Menu étudiant",emoji:"🎓",price:10,image:"etudiant.jpg",sub:"Cheese (2 steaks smash, cheddar maturé, oignons rouges, iceberg, moutarde/ketchup) + frites + eau. Justificatif étudiant au retrait."},
+    {key:"child",label:"Menu enfant",emoji:"👶",price:8.5,image:"enfant.jpg",sub:"Pain brioché, 1 steak smash, cheddar maturé, iceberg, ketchup + frites + eau ou compote.",choices:["Eau","Compote"]}
   ];
 
   // ================== STOCK MANUEL ==================
@@ -2339,6 +2309,9 @@ body{overflow-x:hidden}
   const MENU_DRINK_CHOICES = ["Eau","Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante"];
   let stockByKey = {};
   let stockLoaded = false;
+  let pickupSlots = null;
+  let pickupSlotsLoading = false;
+  let pickupSlotsRequest = null;
 
   // ================== PLANNING CLICK & COLLECT ==================
   // Tout le planning est regroupé ici pour être facile à modifier.
@@ -2352,7 +2325,7 @@ body{overflow-x:hidden}
     1: {label:"Lundi soir", location:"Flower Camping La Pointe du Talud , Ploemeur", orderStart:"15:00", pickupStart:"18:30", pickupEnd:"21:15"},
     2: null,
     3: {label:"Mercredi soir", location:"Flower Camping La Pointe du Talud , Ploemeur", orderStart:"15:00", pickupStart:"19:00", pickupEnd:"21:00"},
-    4: {label:"Jeudi soir", location:"Parking Intermarché Lanveur Place des jumelages, 56100 LORIENT", orderStart:"15:00", pickupStart:"19:00", pickupEnd:"21:00"},
+    4: {label:"Jeudi soir", location:"Place des Jumelages, Intermarché Lanveur, LORIENT", orderStart:"17:00", pickupStart:"19:00", pickupEnd:"21:00"},
     5: {label:"Vendredi midi", location:"La Base, Rue du Sous marin Vénus, LORIENT ", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"13:55"},
     6: {label:"Samedi soir", location:"Parking du Cabesto, LORIENT", orderStart:"16:30", pickupStart:"19:00", pickupEnd:"21:45"}
   };
@@ -2360,7 +2333,19 @@ body{overflow-x:hidden}
   // Menu étudiant : uniquement le midi.
   // Si l'offre change, ajuste juste ces deux heures.
   const STUDENT_MENU_WINDOW = {start:"10:00", end:"13:45"};
-  let cart = JSON.parse(localStorage.getItem("lmsb_click_cart_v6") || "[]");
+  const CART_KEY = "lmsb_click_cart_v7";
+  const oldCart = JSON.parse(localStorage.getItem("lmsb_click_cart_v6") || "[]");
+  const removedOldStudent = !localStorage.getItem(CART_KEY) && oldCart.some(l => l.mode === "student");
+  let cart = JSON.parse(localStorage.getItem(CART_KEY) || "null");
+  if(!Array.isArray(cart)){
+    cart = oldCart.filter(l => l.mode !== "student").map(l => {
+      if(l.mode === "menu" && /frites\s*\+\s*Eau(?:\s*[·|]|$)/i.test(String(l.meta||""))){
+        return {...l,price:Number(l.price||0)+PRICES.water};
+      }
+      return l;
+    });
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
   let activeBurgerIndex = null;
   let orderSubmissionInProgress = false;
   let lastSuccessfulOrderFingerprint = sessionStorage.getItem("lmsb_last_successful_order") || "";
@@ -2508,42 +2493,23 @@ body{overflow-x:hidden}
     const sodaChoicesBox = document.getElementById("sodaChoices");
     if(!select || !waterBtn || !sodaBtn || !sodaChoicesBox) return;
 
-    const previous = select.value || "Eau";
+    const previous = select.value;
     const availableChoices = MENU_DRINK_CHOICES.filter(choice => isStockAvailable("drink:" + choice));
     const waterAvailable = availableChoices.includes("Eau");
     const sodaChoices = availableChoices.filter(choice => choice !== "Eau" && choice !== "Eau pétillante");
-    const selectedIsSoda = previous !== "Eau" && previous !== "Eau pétillante" && sodaChoices.includes(previous);
-
+    const noneBtn = document.getElementById("drinkNoneBtn");
     waterBtn.disabled = !waterAvailable;
     sodaBtn.disabled = sodaChoices.length === 0;
-
-    if(!availableChoices.length){
-      select.innerHTML = `<option value="">Aucune boisson disponible</option>`;
-      select.disabled = true;
-      waterBtn.classList.remove("active");
-      sodaBtn.classList.remove("active");
-      sodaChoicesBox.style.display = "none";
-      sodaChoicesBox.innerHTML = "";
-      return;
-    }
-
     select.disabled = false;
-    select.innerHTML = availableChoices.map(choice =>
+    select.innerHTML = `<option value="">Sans boisson</option>` + availableChoices.map(choice =>
       `<option value="${escapeHtml(choice)}">${escapeHtml(choice)}</option>`
     ).join("");
-
-    if(availableChoices.includes(previous)){
-      select.value = previous;
-    }else if(waterAvailable){
-      select.value = "Eau";
-    }else{
-      select.value = availableChoices[0];
-    }
+    select.value = availableChoices.includes(previous) ? previous : "";
 
     const current = select.value;
-    const currentIsSoda = current !== "Eau" && current !== "Eau pétillante";
-
-    waterBtn.classList.toggle("active", !currentIsSoda);
+    const currentIsSoda = !!current && current !== "Eau" && current !== "Eau pétillante";
+    noneBtn.classList.toggle("active", !current);
+    waterBtn.classList.toggle("active", current === "Eau" || current === "Eau pétillante");
     sodaBtn.classList.toggle("active", currentIsSoda);
 
     sodaChoicesBox.innerHTML = sodaChoices.map(choice => `
@@ -2561,7 +2527,9 @@ body{overflow-x:hidden}
     const select = document.getElementById("modalDrink");
     if(!select) return;
 
-    if(type === "water"){
+    if(type === "none"){
+      select.value = "";
+    }else if(type === "water"){
       if(!isStockAvailable("drink:Eau")){
         stockToast(["drink:Eau"]);
         updateModalDrinkOptions();
@@ -2612,7 +2580,10 @@ body{overflow-x:hidden}
     const selected=timeToMinutes(timeStr);
     return selected>=timeToMinutes(service.pickupStart)
       && selected<=timeToMinutes(service.pickupEnd)
-      && selected%15===0;
+      && selected%15===0
+      && selected>nowMinutes(date)
+      && pickupSlots && pickupSlots.date===new Intl.DateTimeFormat("en-CA", {timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit"}).format(date)
+      && !pickupSlots.unavailable.includes(timeStr);
   }
   function isStudentOfferAvailableNow(date=new Date()){
     return isBetweenMinutes(nowMinutes(date),STUDENT_MENU_WINDOW.start,STUDENT_MENU_WINDOW.end);
@@ -2636,48 +2607,68 @@ body{overflow-x:hidden}
   }
   function updatePickupConstraints(){
     const input=document.getElementById("pickupTime"),service=currentService();
-    if(!input || !service)return;
-    const previous=input.value;
-    const start=Math.ceil(timeToMinutes(service.pickupStart)/15)*15;
-    const end=Math.floor(timeToMinutes(service.pickupEnd)/15)*15;
-    const slots=[];
-    for(let minute=start;minute<=end;minute+=15){slots.push(minutesToTime(minute));}
-    input.innerHTML=slots.map(slot=>`<option value="${slot}">${slot.replace(":","h")}</option>`).join("");
-    if(slots.includes(previous))input.value=previous;
-  }
-  function nextDefaultPickupTime(){
-    const service=currentService();
-    if(!service)return "";
-    const d=new Date();
-    d.setMinutes(d.getMinutes()+25);
-    const suggested=Math.ceil(nowMinutes(d)/15)*15;
-    const start=Math.ceil(timeToMinutes(service.pickupStart)/15)*15;
-    const end=Math.floor(timeToMinutes(service.pickupEnd)/15)*15;
-    if(suggested<start)return minutesToTime(start);
-    if(suggested>end)return minutesToTime(end);
-    return minutesToTime(suggested);
-  }
-  function updateStudentOptionAvailability(){
-    const input=document.querySelector('input[name="formula"][value="student"]');
     if(!input)return;
-    const label=input.closest(".option"),note=label.querySelector(".student-note"),available=isStudentOfferAvailableNow();
-    input.disabled=!available;
-    label.classList.toggle("disabled",!available);
-    if(note)note.textContent=available
-      ? "Burger + frites + eau. Justificatif étudiant à présenter au retrait."
-      : `Offre uniquement disponible les midis de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`;
-    if(!available && input.checked){document.querySelector('input[name="formula"][value="solo"]').checked=true;}
+    const previous=input.value;
+    const availability=document.getElementById("pickupAvailability");
+    const currentDate=new Intl.DateTimeFormat("en-CA", {timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+    const slotsReady=pickupSlots && pickupSlots.date===currentDate;
+    if(!service || !slotsReady){
+      input.innerHTML='<option value="">Créneaux indisponibles</option>';
+      input.disabled=true;
+      availability.textContent=!service?"Aucun retrait aujourd’hui.":pickupSlotsLoading?"Chargement des créneaux...":"Créneaux indisponibles. Réessaie dans un instant.";
+      return;
+    }
+    const start=Math.ceil(timeToMinutes(service.pickupStart)/15)*15;
+    const end=Math.floor(timeToMinutes(service.pickupEnd)/15)*15;
+    const earliest=Math.ceil((nowMinutes()+25)/15)*15;
+    const slots=[];
+    for(let minute=start;minute<=end;minute+=15){
+      const time=minutesToTime(minute);
+      const full=pickupSlots.unavailable.includes(time);
+      const disabled=minute<earliest || full;
+      slots.push({time,full,disabled});
+    }
+    input.innerHTML=slots.map(s=>`<option value="${s.time}" ${s.disabled?"disabled":""}>${s.time.replace(":","h")}${s.full?" — Complet":s.disabled?" — Indisponible":""}</option>`).join("");
+    const available=slots.filter(s=>!s.disabled);
+    const next=available.find(s=>s.time>previous);
+    input.value=available.some(s=>s.time===previous)?previous:((next||available[0])?.time||"");
+    input.disabled=!available.length;
+    availability.textContent=available.length?"Choisis ton heure de retrait.":"Aucun créneau disponible aujourd’hui.";
   }
-  function saveCart(){localStorage.setItem("lmsb_click_cart_v6",JSON.stringify(cart));}
+  function loadPickupSlots(){
+    if(pickupSlotsRequest)return pickupSlotsRequest;
+    pickupSlotsLoading=true;
+    if(!pickupSlots)updatePickupConstraints();
+    pickupSlotsRequest=(async()=>{
+      try{
+        const res=await fetch(LIVE_URL+"?mode=slots&ts="+Date.now(),{method:"GET",cache:"no-store"});
+        const data=await res.json();
+        if(!res.ok || !data.ok || !data.date || !Array.isArray(data.unavailable))throw new Error("Créneaux indisponibles");
+        pickupSlots=data;
+        return true;
+      }catch(error){
+        console.warn("Créneaux non chargés",error);
+        // Une ancienne liste reste affichée; le serveur vérifie toujours avant d'accepter.
+        return false;
+      }finally{
+        pickupSlotsLoading=false;
+        pickupSlotsRequest=null;
+        updatePickupConstraints();
+      }
+    })();
+    return pickupSlotsRequest;
+  }
+  function updateStudentOptionAvailability(){renderSpecialMenus();}
+  function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(cart));}
   function calcTotal(){return cart.reduce((s,l)=>s+Number(l.price||0)*Number(l.qty||0),0);}
   function cartItemsCount(){return cart.reduce((s,l)=>s+Number(l.qty||0),0);}
   function currentFormula(){const c=document.querySelector('input[name="formula"]:checked');return c?c.value:"solo";}
-  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0);let price=mode==="menu"?PRICES.menu:mode==="student"?PRICES.student:PRICES.burger;if((mode==="menu"||mode==="student")&&drink!=="Eau")price+=PRICES.soda;price+=cheese*PRICES.supCheese;price+=steak*PRICES.supSteak;return price;}
-  function updateModalPrice(){const mode=currentFormula();document.getElementById("drinkBox").style.display=(mode==="menu"||mode==="student")?"block":"none";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
-  window.openBurgerModal = idx => {activeBurgerIndex=idx;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value=document.getElementById("modalDrink").disabled?"":(MENU_DRINK_CHOICES.includes("Eau")&&isStockAvailable("drink:Eau")?"Eau":document.getElementById("modalDrink").value);updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateStudentOptionAvailability();updateModalPrice();document.getElementById("burgerModal").classList.add("active");};
+  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0);let price=mode==="menu"?PRICES.menu:PRICES.burger;if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
+  function updateModalPrice(){const mode=currentFormula();document.getElementById("drinkBox").style.display=mode==="menu"?"block":"none";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
+  window.openBurgerModal = idx => {activeBurgerIndex=idx;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateStudentOptionAvailability();updateModalPrice();document.getElementById("burgerModal").classList.add("active");};
   window.closeBurgerModal = () => document.getElementById("burgerModal").classList.remove("active");
   window.changeModalCounter = (type,delta) => {const id=type==="cheese"?"modalCheese":"modalSteak";const el=document.getElementById(id);el.textContent=String(Math.max(0,Number(el.textContent||0)+delta));updateModalPrice();};
-  window.addBurgerFromModal = () => {if(activeBurgerIndex==null)return;const b=BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if((mode==="menu"||mode==="student")&&!drink){toast("Aucune boisson disponible pour le moment");return;}if((mode==="menu"||mode==="student")&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites + "+drink:mode==="student"?"Menu étudiant + frites + "+drink+" · justificatif à présenter":"Seul";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:3,comped:false});saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
+  window.addBurgerFromModal = () => {if(activeBurgerIndex==null)return;const b=BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
   let upsellQueue = [];
   function cartHas(key){
     return cart.some(l => String(l.type || "") === key || String(l.label || "").toLowerCase().includes(key));
@@ -2721,8 +2712,7 @@ body{overflow-x:hidden}
       return;
     }
     updatePickupConstraints();
-    const pickup=document.getElementById("pickupTime");
-    if(pickup && !isPickupTimeAllowed(pickup.value))pickup.value=nextDefaultPickupTime();
+    loadPickupSlots();
     upsellQueue = buildUpsellQueue();
     showNextUpsell();
   };
@@ -2745,6 +2735,36 @@ body{overflow-x:hidden}
   };
   window.closeCheckout = () => document.getElementById("checkoutModal").classList.remove("active");
   function renderBurgers(){document.getElementById("burgerGrid").innerHTML=BURGERS.map((b,idx)=>{const available=isBurgerAvailable(b);const stockNote=available?"":`<p class="stock-note">Victime de son succès !</p>`;return `<button class="burger-card ${available?"":"is-out"}" type="button" ${available?`onclick="window.openBurgerModal(${idx})"`:"disabled"}><div class="pic"><img src="${escapeHtml(b.image)}" alt="${escapeHtml(b.name)}" onerror="this.style.display='none'"><span>🍔</span></div><div class="burger-info"><h3>${escapeHtml(b.name)}</h3><p>${escapeHtml(b.desc)}</p>${stockNote}<div class="price-row"><span class="price">11€</span><span class="choose">${available?"Choisir":"Victime de son succès"}</span></div></div></button>`}).join("");}
+  function renderSpecialMenus(){
+    document.getElementById("specialMenusGrid").innerHTML=SPECIAL_MENUS.map((e,idx)=>{
+      const available=e.key==="student"
+        ? isStudentOfferAvailableNow() && isStockAvailable("burger:cheese") && isStockAvailable("drink:Eau")
+        : isExtraAvailable(e);
+      const choices=e.choices?availableChoicesForExtra(e):[];
+      const choiceSelect=e.choices
+        ? `<select id="specialChoice-${idx}" aria-label="Choix menu enfant" ${choices.length?"":"disabled"}>${choices.length?choices.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join(""):"<option>Rupture</option>"}</select>`
+        : "";
+      const note=!available
+        ? `<p class="stock-note">${e.key==="student"&&!isStudentOfferAvailableNow()?`Disponible le midi de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`:"Indisponible pour le moment"}</p>`
+        : "";
+      return `<article class="extra-card ${available?"":"is-out"}"><div class="extra-visual extra-${e.key}"><img src="${escapeHtml(e.image)}" alt="${escapeHtml(e.label)}" loading="lazy" onerror="this.style.display='none'"><span>${e.emoji}</span></div><div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div><p class="extra-sub">${escapeHtml(e.sub)}</p>${choiceSelect}${note}<button class="add-extra" type="button" ${available?"":"disabled"} onclick="window.addSpecialMenu(${idx})">${available?"Ajouter":"Indisponible"}</button></div></article>`;
+    }).join("");
+  }
+  window.addSpecialMenu=idx=>{
+    const e=SPECIAL_MENUS[idx];
+    if(e.key==="student"){
+      if(!isStudentOfferAvailableNow()){toast("Menu étudiant disponible uniquement le midi.");return;}
+      const missing=["burger:cheese","drink:Eau"].filter(key=>!isStockAvailable(key));
+      if(missing.length){stockToast(missing);loadStock();return;}
+      cart.push({id:uid(),type:"student",mode:"student",stockKey:"burger:cheese",label:"🎓 Menu étudiant",meta:"Cheese + frites + Eau",notes:"Justificatif étudiant à présenter au retrait",price:PRICES.student,qty:1,baseItems:3,comped:false});
+    }else{
+      if(!isExtraAvailable(e)){stockToast(["extra:child"]);return;}
+      const choice=document.getElementById(`specialChoice-${idx}`)?.value;
+      if(!choice || !isStockAvailable("child:"+choice)){stockToast(["child:"+choice]);loadStock();return;}
+      cart.push({id:uid(),type:"child",stockKey:"extra:child",label:`👶 Menu enfant (${choice})`,meta:"Burger + frites + "+choice,notes:"",price:e.price,qty:1,baseItems:3,comped:false});
+    }
+    saveCart();renderCart();toast("Ajouté au panier");
+  };
   function renderExtras(){
     document.getElementById("extrasGrid").innerHTML=EXTRAS.map((e,idx)=>{
       const available = isExtraAvailable(e);
@@ -2760,6 +2780,7 @@ body{overflow-x:hidden}
       const stockNote = available ? "" : `<p class="stock-note">Indisponible pour le moment</p>`;
       return `<article class="extra-card ${available ? "" : "is-out"}">${visual}<div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div>${e.sub?`<p class="extra-sub">${escapeHtml(e.sub)}</p>`:""}${choiceSelect}${stockNote}<button class="add-extra" type="button" ${available ? "" : "disabled"} onclick="window.addExtra(${idx})">${available ? "Ajouter" : "Rupture"}</button></div></article>`;
     }).join("");
+    renderSpecialMenus();
   }
   window.addExtra = idx => {
     const e=EXTRAS[idx];
@@ -2768,7 +2789,7 @@ body{overflow-x:hidden}
     if(e.choices && !choice){toast("Aucun choix disponible");return;}
     if(e.choices && !isStockAvailable(stockKeyForExtra(e,choice))){stockToast([stockKeyForExtra(e,choice)]);loadStock();return;}
     const label=`${e.emoji} ${e.label}${choice?" ("+choice+")":""}`;
-    cart.push({id:uid(),type:e.key==="child"?"child":"extra",label,meta:e.key==="child"?"Menu enfant : burger + frites + "+choice:"",notes:"",price:e.price,qty:1,baseItems:e.key==="child"?2:1,comped:false});
+    cart.push({id:uid(),type:"extra",stockKey:stockKeyForExtra(e,choice),label,meta:"",notes:"",price:e.price,qty:1,baseItems:1,comped:false});
     saveCart();renderCart();toast("Ajouté au panier");
   };
   window.changeQty = (id,delta) => {const item=cart.find(x=>x.id===id);if(!item)return;item.qty=Math.max(0,Number(item.qty||0)+delta);if(item.qty===0)cart=cart.filter(x=>x.id!==id);saveCart();renderCart();};
@@ -2791,7 +2812,7 @@ body{overflow-x:hidden}
   }
   function scheduledTimestamp(timeStr){if(!timeStr)return "";const [h,m]=timeStr.split(":").map(Number);const d=new Date();d.setHours(h||0,m||0,0,0);return d.getTime();}
   async function postLive(payload){const form=new URLSearchParams();form.append("data",JSON.stringify(payload));return fetch(LIVE_URL,{method:"POST",body:form});}
-  function buildCaisseDraft(){const items=[],extras=[];cart.forEach(l=>{const line={id:Number(String(Date.now()).slice(-9))+Math.random(),label:l.label,meta:l.meta||"",notes:l.notes||"",price:l.price,qty:l.qty,mode:l.mode||l.type,baseItems:l.baseItems||1,stockKey:l.stockKey||"",comped:false};if(l.type==="burger"||l.type==="child")items.push(line);else extras.push(line);});return {items,extras};}
+  function buildCaisseDraft(){const items=[],extras=[];cart.forEach(l=>{const line={id:Number(String(Date.now()).slice(-9))+Math.random(),label:l.label,meta:l.meta||"",notes:l.notes||"",price:l.price,qty:l.qty,mode:l.mode||l.type,baseItems:l.baseItems||1,stockKey:l.stockKey||"",comped:false};if(l.type==="burger"||l.type==="child"||l.type==="student")items.push(line);else extras.push(line);});return {items,extras};}
   async function sendOrder(){
     const btn=document.getElementById("sendOrder");
 
@@ -2835,13 +2856,13 @@ body{overflow-x:hidden}
 
     orderSubmissionInProgress=true;
     btn.disabled=true;
-    btn.textContent="Envoi en cours...cela peut prendre quelques instants !";
+    btn.textContent="Envoi en cours...";
+    btn.setAttribute("aria-busy","true");
 
     let sentSuccessfully=false;
 
     try{
-      await loadStock();
-
+      // Le serveur contrôle le stock et le créneau sous verrou pendant cet unique POST.
       const stockCheck=checkCartStock();
       if(!stockCheck.ok){
         stockToast(stockCheck.unavailable);
@@ -2889,11 +2910,18 @@ body{overflow-x:hidden}
       try{data=await res.json();}catch(_e){}
 
       if(data&&data.ok===false&&data.error==="stock_unavailable"){
-        await loadStock();
+        loadStock();
         const keys=(data.unavailable||[]).map(x=>x.key||x);
         stockToast(keys);
         renderBurgers();
         renderExtras();
+        return;
+      }
+
+      if(data&&data.ok===false&&(data.error==="slot_full" || data.error==="invalid_pickup")){
+        if(data.slots && data.slots.ok)pickupSlots=data.slots;
+        updatePickupConstraints();
+        toast(data.message || "Créneau indisponible. Choisis le suivant.");
         return;
       }
 
@@ -2902,6 +2930,7 @@ body{overflow-x:hidden}
       }
 
       sentSuccessfully=true;
+      // La prochaine ouverture recharge les créneaux après cette commande.
       lastSuccessfulOrderFingerprint=fingerprint;
       sessionStorage.setItem("lmsb_last_successful_order",fingerprint);
 
@@ -2919,6 +2948,7 @@ body{overflow-x:hidden}
       toast(e&&e.message?e.message:"Erreur d’envoi");
     }finally{
       orderSubmissionInProgress=false;
+      btn.removeAttribute("aria-busy");
 
       if(sentSuccessfully){
         btn.disabled=true;
@@ -2929,7 +2959,7 @@ body{overflow-x:hidden}
       }
     }
   }
-  function initPickupTime(){const input=document.getElementById("pickupTime");updatePickupConstraints();input.value=nextDefaultPickupTime();}
+  function initPickupTime(){loadPickupSlots();}
   document.querySelectorAll('input[name="formula"]').forEach(input=>input.addEventListener("change",updateModalPrice));
   document.querySelectorAll(".option").forEach(label=>label.addEventListener("click",()=>{const input=label.querySelector("input");if(input.disabled){toast(`Offre uniquement disponible les midis de ${STUDENT_MENU_WINDOW.start} à ${STUDENT_MENU_WINDOW.end}.`);return;}input.checked=true;updateModalPrice();}));
   document.getElementById("modalDrink").addEventListener("change",()=>{updateModalDrinkOptions();updateModalPrice();});
@@ -2943,7 +2973,8 @@ body{overflow-x:hidden}
     }
   });
   renderBurgers();renderExtras();renderCart();renderServiceCard();initPickupTime();loadStock();
-  setInterval(()=>{renderServiceCard();updateStudentOptionAvailability();loadStock();},60000);
+  if(removedOldStudent)toast("Le menu étudiant a changé : ajoute-le à nouveau dans Menus spéciaux.");
+  setInterval(()=>{renderServiceCard();updateStudentOptionAvailability();loadStock();loadPickupSlots();},60000);
 })();
 </script>
 <script>
@@ -3712,6 +3743,73 @@ body{overflow-x:hidden}
   }
 }
 
+</style>
+
+<style id="lmsb-pickup-gallery-fix">
+/* Les photos remplissent réellement chaque case de la grille sur tous les écrans. */
+.brand-hero-gallery{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  grid-template-rows:repeat(2,minmax(0,1fr)) !important;
+  min-width:0 !important;
+  min-height:0 !important;
+}
+.brand-hero-gallery > img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  max-width:none !important;
+  max-height:none !important;
+  aspect-ratio:auto !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  padding:0 !important;
+  transform:none !important;
+}
+@media(max-width:780px){
+  .brand-hero-gallery{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    grid-template-rows:repeat(4,minmax(0,1fr)) !important;
+  }
+}
+#pickupAvailability{display:block;margin-top:6px;color:#666;font-size:12px;line-height:1.35}
+#pickupTime option:disabled{color:#888;background:#eee}
+</style>
+
+<style id="lmsb-mobile-centered-checkout">
+@media(max-width:780px){
+  .app{width:calc(100% - 20px) !important;max-width:560px !important;margin-left:auto !important;margin-right:auto !important;}
+  .app .layout,.app .menu-panel,.app .cart{width:100% !important;min-width:0 !important;}
+  .app .products,.app .extras-grid{grid-template-columns:minmax(0,1fr) !important;}
+  .app .burger-card,.app .extra-card{max-width:100% !important;min-width:0 !important;}
+  .brand-hero{height:auto !important;min-height:calc(100svh - 68px) !important;}
+  .brand-hero .hero-content{width:100% !important;max-width:520px !important;margin-inline:auto !important;text-align:center !important;}
+  .brand-hero .hero-actions{width:100% !important;align-items:center !important;}
+  .brand-hero .brand-cta{max-width:min(100%,330px) !important;margin-inline:auto !important;}
+  .checkout-backdrop,.modal-backdrop{padding:0 !important;align-items:flex-end !important;overflow-y:auto;}
+  .checkout-backdrop .checkout,.modal-backdrop .modal{width:100% !important;max-width:560px !important;margin:0 auto !important;max-height:calc(100dvh - env(safe-area-inset-top)) !important;border-radius:22px 22px 0 0 !important;overflow-y:auto;overscroll-behavior:contain;}
+  .checkout-backdrop .checkout{padding:18px 16px calc(20px + env(safe-area-inset-bottom)) !important;}
+  .checkout .form-grid{grid-template-columns:minmax(0,1fr) !important;gap:12px !important;}
+  .checkout input,.checkout select,.checkout textarea{width:100% !important;min-width:0 !important;font-size:16px !important;min-height:46px;}
+  .checkout textarea{min-height:76px;}
+  .checkout #sendOrder{min-height:48px;width:100%;}
+  .brand-nav .topbar-inner{justify-content:center !important;}
+  .brand-nav .site-brand{min-width:0 !important;}
+  .brand-nav .top-actions{flex-shrink:0;}
+}
+@media(max-width:360px){
+  .app{width:calc(100% - 16px) !important;}
+  .brand-nav .topbar-inner{padding-inline:8px !important;}
+  .brand-nav .site-brand strong{white-space:normal !important;line-height:1.05;}
+}
+#sendOrder[aria-busy="true"]{opacity:.8;cursor:progress;}
+</style>
+<style id="lmsb-menu-revision">
+.special-menus{margin-top:30px}
+.special-menus .extra-visual.extra-student img{object-fit:cover;object-position:center center;padding:0;border-radius:inherit}
+.drink-main-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:420px){.drink-main-buttons{gap:6px}.drink-main-btn{min-width:0;padding:8px 4px}.drink-main-btn span{font-size:.85rem}.drink-main-btn small{font-size:.72rem}}
 </style>
 </body>
 </html>
