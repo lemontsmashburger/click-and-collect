@@ -2150,7 +2150,7 @@ body{overflow-x:hidden}
         <div class="section-title"><div><h2>Burgers</h2><p class="section-sub">Clique sur un burger pour choisir la formule.</p></div></div>
         <div class="products" id="burgerGrid"></div>
         <section class="extras special-menus">
-          <div class="section-title"><div><h2>Menus spéciaux</h2><p class="section-sub">Menus enfant et étudiant.</p></div></div>
+          <div class="section-title"><div><h2>Menus spéciaux</h2><p class="section-sub">Burger du moment, menus enfant et étudiant.</p></div></div>
           <div class="extras-grid" id="specialMenusGrid"></div>
         </section>
         <section class="extras">
@@ -2300,7 +2300,8 @@ body{overflow-x:hidden}
   ];
   const SPECIAL_MENUS = [
     {key:"student",label:"Menu étudiant",emoji:"🎓",price:10,image:"etudiant.jpg",sub:"Cheese (2 steaks smash, cheddar maturé, oignons rouges, iceberg, moutarde/ketchup) + frites + eau. Justificatif étudiant au retrait."},
-    {key:"child",label:"Menu enfant",emoji:"👶",price:8.5,image:"enfant.jpg",sub:"Pain brioché, 1 steak smash, cheddar maturé, iceberg, ketchup + frites + eau ou compote.",choices:["Eau","Compote"]}
+    {key:"child",label:"Menu enfant",emoji:"👶",price:8.5,image:"enfant.jpg",sub:"Pain brioché, 1 steak smash, cheddar maturé, iceberg, ketchup + frites + eau ou compote.",choices:["Eau","Compote"]},
+    {key:"burgerMoment",label:"Burger du moment",emoji:"🍔",price:PRICES.burger,image:"mystere.jpg",sub:"Pain brioché, 2 steaks smash, Tomme de Savoie IGP, oignons rouges et caramélisés, iceberg, sauce D."}
   ];
 
   // ================== STOCK MANUEL ==================
@@ -2325,7 +2326,10 @@ body{overflow-x:hidden}
     1: null,
     2: null,
     3: {label:"Mercredi midi", location:"Parc Youri Gagarine, LORIENT", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"13:45"},
-    4: {label:"Jeudi soir", location:"Intermarché Lanveur, Place des Jumelages, LORIENT ", orderStart:"15:00", pickupStart:"19:00", pickupEnd:"20:55"},
+    4: [
+      {label:"Jeudi midi", location:"Parc de Soye, 5 All. Copernic, Parking JLBI Acoustique, 56270 Ploemeur", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"14:00"},
+      {label:"Jeudi soir", location:"Intermarché Lanveur, Place des Jumelages, LORIENT", orderStart:"15:00", pickupStart:"19:00", pickupEnd:"21:00"}
+    ],
     5: {label:"Vendredi midi", location:"LA BASE, rue du sous marin venus, LORIENT ", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"13:45"},
     6: {label:"Samedi soir", location:"Parking Cabesto, LORIENT ", orderStart:"16:00", pickupStart:"18:30", pickupEnd:"21:00"}
   };
@@ -2563,7 +2567,16 @@ body{overflow-x:hidden}
   function timeToMinutes(timeStr){const [h,m]=String(timeStr||"00:00").split(":").map(Number);return (h||0)*60+(m||0);}
   function minutesToTime(total){const h=Math.floor(total/60),m=total%60;return String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");}
   function nowMinutes(date=new Date()){return date.getHours()*60+date.getMinutes();}
-  function currentService(date=new Date()){return SERVICE_SCHEDULE[date.getDay()] || null;}
+  function currentService(date=new Date()){
+    const scheduled=SERVICE_SCHEDULE[date.getDay()];
+    if(!scheduled)return null;
+    const services=(Array.isArray(scheduled)?scheduled:[scheduled]).filter(Boolean);
+    const current=nowMinutes(date);
+    return services.find(service=>current>=timeToMinutes(service.orderStart)&&current<=timeToMinutes(service.pickupEnd))
+      || services.find(service=>current<timeToMinutes(service.orderStart))
+      || services[services.length-1]
+      || null;
+  }
   function isOrderingOpenNow(date=new Date()){
     const service=currentService(date);
     if(!service)return false;
@@ -2728,9 +2741,11 @@ body{overflow-x:hidden}
   function renderBurgers(){document.getElementById("burgerGrid").innerHTML=BURGERS.map((b,idx)=>{const available=isBurgerAvailable(b);const stockNote=available?"":`<p class="stock-note">Victime de son succès !</p>`;return `<button class="burger-card ${available?"":"is-out"}" type="button" ${available?`onclick="window.openBurgerModal(${idx})"`:"disabled"}><div class="pic"><img src="${escapeHtml(b.image)}" alt="${escapeHtml(b.name)}" onerror="this.style.display='none'"><span>🍔</span></div><div class="burger-info"><h3>${escapeHtml(b.name)}</h3><p>${escapeHtml(b.desc)}</p>${stockNote}<div class="price-row"><span class="price">11€</span><span class="choose">${available?"Choisir":"Victime de son succès"}</span></div></div></button>`}).join("");}
   function renderSpecialMenus(){
     document.getElementById("specialMenusGrid").innerHTML=SPECIAL_MENUS.map((e,idx)=>{
-      const available=e.key==="student"
-        ? isStockAvailable("burger:cheese") && isStockAvailable("drink:Eau")
-        : isExtraAvailable(e);
+      const available=e.key==="burgerMoment"
+        ? true
+        : e.key==="student"
+          ? isStockAvailable("burger:cheese") && isStockAvailable("drink:Eau")
+          : isExtraAvailable(e);
       const choices=e.choices?availableChoicesForExtra(e):[];
       const choiceSelect=e.choices
         ? `<select id="specialChoice-${idx}" aria-label="Choix menu enfant" ${choices.length?"":"disabled"}>${choices.length?choices.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join(""):"<option>Rupture</option>"}</select>`
@@ -2743,7 +2758,9 @@ body{overflow-x:hidden}
   }
   window.addSpecialMenu=idx=>{
     const e=SPECIAL_MENUS[idx];
-    if(e.key==="student"){
+    if(e.key==="burgerMoment"){
+      cart.push({id:uid(),type:"burger",stockKey:"",label:"🍔 Burger du moment",meta:"Seul",notes:"",price:PRICES.burger,qty:1,mode:"solo",baseItems:1,comped:false});
+    }else if(e.key==="student"){
       const missing=["burger:cheese","drink:Eau"].filter(key=>!isStockAvailable(key));
       if(missing.length){stockToast(missing);loadStock();return;}
       cart.push({id:uid(),type:"student",mode:"student",stockKey:"burger:cheese",label:"🎓 Menu étudiant",meta:"Cheese + frites + Eau",notes:"Justificatif étudiant à présenter au retrait",price:PRICES.student,qty:1,baseItems:3,comped:false});
