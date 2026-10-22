@@ -2028,7 +2028,424 @@ body{overflow-x:hidden}
 <style id="lmsb-no-effects-global">/* Aucun effet visuel animé ou au survol sur l’ensemble du site */
 *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 *:hover, *:hover::before, *:hover::after { transform: none !important; filter: none !important; }
-</style></head>
+</style>
+<style id="lmsb-why-editorial-redesign">
+/* REFONTE DE « POURQUOI CHOISIR » — éditorial gourmand, sans cartes ni bulles */
+.why-section.why-editorial{
+  width:100%!important;
+  max-width:none!important;
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  padding:clamp(58px,7.5vw,108px) clamp(20px,7vw,110px)!important;
+  color:#fffaf1!important;
+  background:linear-gradient(125deg,#40281c 0%,#493326 58%,#403b29 100%)!important;
+}
+.why-section.why-editorial::before,
+.why-section.why-editorial::after,
+.why-section.why-editorial .why-editorial-item::before,
+.why-section.why-editorial .why-editorial-item::after,
+.why-section.why-editorial .why-editorial-side::before,
+.why-section.why-editorial .why-editorial-side::after{
+  content:none!important;
+  display:none!important;
+  animation:none!important;
+}
+.why-editorial-top,
+.why-editorial-content,
+.why-editorial-finale{
+  width:min(1180px,100%);
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.why-editorial-top{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.05fr) minmax(260px,.95fr)!important;
+  align-items:end!important;
+  gap:clamp(32px,7vw,105px)!important;
+  padding-bottom:clamp(32px,5vw,60px)!important;
+  border-bottom:1px solid rgba(242,229,197,.26)!important;
+}
+.why-editorial .section-kicker{
+  color:#e1b56c!important;
+  font-size:10px!important;
+  font-weight:900!important;
+  letter-spacing:.25em!important;
+  margin-bottom:20px!important;
+}
+.why-editorial h2{
+  margin:0!important;
+  color:#fffaf1!important;
+  font-size:clamp(42px,6.3vw,82px)!important;
+  line-height:.94!important;
+  letter-spacing:-.065em!important;
+  font-weight:950!important;
+}
+.why-editorial h2 em{
+  color:#e1b56c!important;
+  font-style:normal!important;
+}
+.why-editorial-intro{padding-bottom:5px!important}
+.why-editorial-lead{
+  max-width:480px!important;
+  margin:0 0 25px!important;
+  color:#f2e5d0!important;
+  font-size:clamp(17px,1.8vw,22px)!important;
+  line-height:1.55!important;
+  font-weight:550!important;
+}
+.why-editorial-origins{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:9px 13px!important;
+  color:#d8c5a7!important;
+  font-size:9px!important;
+  line-height:1.5!important;
+  font-weight:900!important;
+  letter-spacing:.16em!important;
+}
+.why-editorial-origins b{color:#e1b56c!important;font-size:12px!important}
+.why-editorial-content{
+  display:grid!important;
+  grid-template-columns:minmax(180px,.62fr) minmax(0,1.38fr)!important;
+  gap:clamp(30px,7vw,100px)!important;
+  align-items:start!important;
+  padding-top:clamp(32px,5vw,58px)!important;
+}
+.why-editorial-side{position:relative!important;display:block!important;padding:14px 0 0!important;min-width:0!important}
+.why-editorial-wordmark{
+  color:#fffaf1!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(40px,5.2vw,72px)!important;
+  line-height:.86!important;
+  letter-spacing:-.075em!important;
+  font-weight:700!important;
+  overflow-wrap:normal!important;
+}
+.why-editorial-wordmark em{color:#e1b56c!important;font-style:normal!important}
+.why-editorial-side p{
+  margin:24px 0 0!important;
+  color:#e1b56c!important;
+  font-size:10px!important;
+  line-height:1.8!important;
+  letter-spacing:.2em!important;
+  font-weight:900!important;
+}
+.why-editorial-side-line{width:54px!important;height:2px!important;margin-top:25px!important;background:#c4863d!important}
+.why-editorial-list{min-width:0!important;border-top:1px solid rgba(242,229,197,.27)!important}
+.why-editorial-item{
+  display:grid!important;
+  grid-template-columns:54px minmax(0,1fr) 18px!important;
+  align-items:start!important;
+  gap:15px!important;
+  min-height:0!important;
+  padding:22px 0 23px!important;
+  margin:0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(242,229,197,.22)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#fffaf1!important;
+  transform:none!important;
+  opacity:1!important;
+  animation:none!important;
+  transition:none!important;
+}
+.why-editorial-number{
+  display:block!important;
+  padding-top:2px!important;
+  color:#e1b56c!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:25px!important;
+  line-height:1!important;
+  font-weight:500!important;
+  letter-spacing:-.04em!important;
+}
+.why-editorial-copy h3{
+  margin:0 0 7px!important;
+  color:#fffaf1!important;
+  font-size:clamp(17px,1.75vw,21px)!important;
+  line-height:1.2!important;
+  letter-spacing:-.025em!important;
+  font-weight:850!important;
+}
+.why-editorial-copy p{
+  max-width:560px!important;
+  margin:0!important;
+  color:#d9c8b2!important;
+  font-size:13px!important;
+  line-height:1.65!important;
+  font-weight:450!important;
+}
+.why-editorial-mark{
+  display:block!important;
+  padding-top:3px!important;
+  color:#c4863d!important;
+  font-size:14px!important;
+  line-height:1!important;
+}
+.why-editorial-finale{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:22px!important;
+  margin-top:clamp(35px,5vw,62px)!important;
+  padding-top:25px!important;
+  border-top:1px solid rgba(242,229,197,.26)!important;
+}
+.why-editorial-finale>span{
+  color:#e1b56c!important;
+  font-size:9px!important;
+  font-weight:900!important;
+  letter-spacing:.18em!important;
+}
+.why-editorial-finale p{
+  margin:0!important;
+  color:#fffaf1!important;
+  font-family:Georgia,"Times New Roman",serif!important;
+  font-size:clamp(23px,3vw,38px)!important;
+  line-height:1.1!important;
+  letter-spacing:-.04em!important;
+}
+.why-editorial-finale p em{color:#e1b56c!important;font-style:italic!important}
+.why-editorial-finale div{
+  color:#d9c8b2!important;
+  font-size:8px!important;
+  line-height:1.5!important;
+  font-weight:900!important;
+  letter-spacing:.16em!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+.why-editorial-finale div b{color:#e1b56c!important;margin:0 5px!important}
+@media(max-width:760px){
+  .why-section.why-editorial{padding:55px 22px 58px!important}
+  .why-editorial-top{grid-template-columns:minmax(0,1fr)!important;gap:20px!important;padding-bottom:30px!important}
+  .why-editorial .section-kicker{margin-bottom:15px!important;font-size:9px!important}
+  .why-editorial h2{font-size:clamp(43px,11vw,62px)!important}
+  .why-editorial-lead{font-size:17px!important;margin-bottom:18px!important}
+  .why-editorial-content{grid-template-columns:minmax(0,1fr)!important;gap:22px!important;padding-top:28px!important}
+  .why-editorial-side{padding:0!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:18px!important}
+  .why-editorial-wordmark{font-size:40px!important;line-height:.88!important}
+  .why-editorial-side p{margin:0!important;text-align:right!important;font-size:8px!important}
+  .why-editorial-side-line{display:none!important}
+  .why-editorial-item{grid-template-columns:39px minmax(0,1fr) 12px!important;gap:10px!important;padding:19px 0 20px!important}
+  .why-editorial-number{font-size:22px!important}
+  .why-editorial-copy h3{font-size:17px!important}
+  .why-editorial-copy p{font-size:12px!important;line-height:1.6!important}
+  .why-editorial-finale{grid-template-columns:minmax(0,1fr)!important;gap:10px!important;margin-top:32px!important;padding-top:22px!important}
+  .why-editorial-finale>span{font-size:9px!important}
+  .why-editorial-finale p{font-size:31px!important}
+  .why-editorial-finale div{text-align:left!important;white-space:normal!important;margin-top:4px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .why-section.why-editorial *,
+  .why-section.why-editorial *::before,
+  .why-section.why-editorial *::after{animation:none!important;transition:none!important}
+}
+</style>
+
+<style id="lmsb-why-final-polish">
+/* Finition de la section : même typographie que le site, sans bulles, numéros ni traits décoratifs */
+.why-section.why-editorial{
+  background:linear-gradient(135deg,#40281c 0%,#493326 62%,#433e2a 100%)!important;
+}
+.why-section.why-editorial::before,.why-section.why-editorial::after,
+.why-section.why-editorial *::before,.why-section.why-editorial *::after{
+  animation:none!important;transition:none!important;
+}
+.why-section.why-editorial .why-editorial-top{border:0!important;padding-bottom:12px!important}
+.why-section.why-editorial .why-editorial-content{display:block!important;padding-top:28px!important}
+.why-section.why-editorial .why-editorial-side{display:none!important}
+.why-section.why-editorial .why-editorial-list{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  column-gap:clamp(22px,4vw,58px)!important;row-gap:22px!important;
+  border:0!important;
+}
+.why-section.why-editorial .why-editorial-item{
+  display:block!important;min-height:0!important;padding:14px 0!important;margin:0!important;
+  border:0!important;border-radius:0!important;background:transparent!important;
+  box-shadow:none!important;opacity:1!important;transform:none!important;
+  animation:none!important;transition:none!important;
+}
+.why-section.why-editorial .why-editorial-number{display:none!important}
+.why-section.why-editorial .why-editorial-copy h3{
+  font-family:inherit!important;font-size:clamp(17px,1.55vw,21px)!important;
+  font-weight:850!important;letter-spacing:normal!important;line-height:1.3!important;
+  margin:0 0 9px!important;color:#fffaf1!important;
+}
+.why-section.why-editorial .why-editorial-copy p{
+  font-family:inherit!important;font-size:14px!important;line-height:1.7!important;
+  font-weight:400!important;color:#d9c8b2!important;
+}
+.why-section.why-editorial .why-editorial-mark{
+  display:block!important;padding:0!important;margin:0 0 13px!important;
+  color:#e1b56c!important;font-size:18px!important;line-height:1!important;
+}
+.why-section.why-editorial .why-editorial-finale{
+  display:block!important;border:0!important;padding-top:25px!important;margin-top:28px!important;
+}
+.why-section.why-editorial .why-editorial-finale>span{display:block!important;margin-bottom:8px!important}
+.why-section.why-editorial .why-editorial-finale p{
+  font-family:inherit!important;font-size:clamp(25px,3.4vw,42px)!important;
+  font-weight:850!important;letter-spacing:-.035em!important;
+}
+.why-section.why-editorial .why-editorial-finale div{display:none!important}
+@media(max-width:760px){
+  .why-section.why-editorial .why-editorial-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:22px!important;row-gap:16px!important}
+  .why-section.why-editorial .why-editorial-copy h3{font-size:17px!important}
+  .why-section.why-editorial .why-editorial-copy p{font-size:13px!important}
+}
+@media(max-width:460px){
+  .why-section.why-editorial .why-editorial-list{grid-template-columns:minmax(0,1fr)!important;row-gap:8px!important}
+  .why-section.why-editorial .why-editorial-item{padding:13px 0!important}
+}
+</style>
+
+
+<style id="lmsb-why-message-blocks">
+/* Nouvelle direction : titre demandé et intitulés en blocs blancs */
+.why-section.why-editorial .why-editorial-top{
+  display:block!important;padding-bottom:8px!important;
+}
+.why-section.why-editorial .why-editorial-heading{max-width:900px!important;}
+.why-section.why-editorial #why-editorial-title{
+  font-family:inherit!important;font-size:clamp(34px,5vw,58px)!important;
+  line-height:1.08!important;letter-spacing:-.035em!important;
+}
+.why-section.why-editorial #why-editorial-title em{font-style:normal!important;color:#e1b56c!important;}
+.why-section.why-editorial .why-editorial-list{align-items:stretch!important;}
+.why-section.why-editorial .why-editorial-item{
+  padding:0 0 17px!important;display:flex!important;flex-direction:column!important;
+  align-items:stretch!important;gap:11px!important;
+}
+.why-section.why-editorial .why-editorial-copy h3{
+  display:block!important;width:100%!important;box-sizing:border-box!important;
+  background:#fffaf1!important;color:#40281c!important;
+  padding:13px 15px!important;border-radius:4px!important;
+  font-size:clamp(16px,1.45vw,20px)!important;line-height:1.25!important;
+  margin:0!important;box-shadow:0 4px 0 rgba(20,12,7,.12)!important;
+}
+.why-section.why-editorial .why-editorial-copy p{margin:0!important;padding:0 3px!important;}
+.why-section.why-editorial .why-editorial-mark{display:none!important;}
+@media(max-width:760px){
+ .why-section.why-editorial .why-editorial-content{padding-top:17px!important;}
+ .why-section.why-editorial .why-editorial-copy h3{font-size:16px!important;padding:12px!important;}
+}
+@media(max-width:460px){
+ .why-section.why-editorial .why-editorial-list{row-gap:5px!important;}
+ .why-section.why-editorial .why-editorial-item{padding-bottom:13px!important;}
+}
+</style>
+
+
+<style id="lmsb-why-creative-titles">
+/* Titres plus éditoriaux, sans répétition de cartes ni ornements superflus */
+.why-section.why-editorial .why-editorial-copy h3{
+  display:block!important;width:auto!important;box-sizing:border-box!important;
+  background:transparent!important;color:#fffaf1!important;
+  padding:0!important;border-radius:0!important;box-shadow:none!important;
+  font-family:inherit!important;font-size:clamp(19px,2vw,26px)!important;
+  font-weight:800!important;line-height:1.15!important;letter-spacing:-.035em!important;
+  margin:0 0 11px!important;
+}
+.why-section.why-editorial .why-editorial-item{
+  padding:7px 0 20px!important;gap:0!important;
+}
+.why-section.why-editorial .why-editorial-copy p{
+  max-width:34ch!important;padding:0!important;margin:0!important;
+}
+/* Chaque intitulé a son propre rythme visuel, sans numéros ni étoiles */
+.why-section.why-editorial .why-editorial-item:nth-child(1) h3{color:#e1b56c!important;font-size:clamp(23px,2.3vw,30px)!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(2) h3{font-size:clamp(18px,1.7vw,22px)!important;letter-spacing:-.02em!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(3) h3{font-style:italic!important;color:#e1b56c!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(4) h3{font-size:clamp(20px,2vw,25px)!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(5) h3{font-weight:600!important;letter-spacing:-.015em!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(6) h3{color:#e1b56c!important;font-size:clamp(19px,1.9vw,24px)!important;}
+.why-section.why-editorial .why-editorial-mark{display:none!important;}
+@media(max-width:760px){
+ .why-section.why-editorial .why-editorial-copy h3{font-size:20px!important;}
+ .why-section.why-editorial .why-editorial-item:nth-child(1) h3{font-size:25px!important;}
+ .why-section.why-editorial .why-editorial-item{padding:8px 0 15px!important;}
+}
+</style>
+
+<style id="lmsb-autumn-editorial-finish">
+/* Direction automnale : café, caramel et crème, avec six compositions volontairement différentes. */
+.story-section:before{content:none!important;display:none!important;}
+.why-section.why-editorial{
+  background:radial-gradient(ellipse at 88% 12%,rgba(190,126,66,.22),transparent 32%),linear-gradient(135deg,#342219 0%,#493021 54%,#3a291f 100%)!important;
+  color:#f8edda!important;
+  padding-top:clamp(62px,8vw,104px)!important;
+  padding-bottom:clamp(62px,8vw,100px)!important;
+}
+.why-section.why-editorial:before{width:340px!important;height:340px!important;right:-175px!important;top:auto!important;bottom:-190px!important;background:rgba(214,157,91,.12)!important;filter:blur(12px)!important;}
+.why-section.why-editorial .section-kicker{color:#d6a46d!important;}
+.why-section.why-editorial #why-editorial-title{color:#fff4e3!important;font-family:inherit!important;letter-spacing:-.045em!important;line-height:1.02!important;}
+.why-section.why-editorial #why-editorial-title em{color:#dba66d!important;font-style:normal!important;}
+.why-section.why-editorial .why-editorial-content{display:block!important;max-width:1180px!important;margin:35px auto 0!important;padding:0!important;}
+.why-section.why-editorial .why-editorial-side{display:none!important;}
+.why-section.why-editorial .why-editorial-list{
+  display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:0 28px!important;
+  border:0!important;align-items:start!important;
+}
+.why-section.why-editorial .why-editorial-item{
+  position:relative!important;display:block!important;min-width:0!important;margin:0!important;
+  padding:25px 0 27px!important;border-top:1px solid rgba(242,220,188,.25)!important;
+  background:transparent!important;box-shadow:none!important;border-radius:0!important;
+}
+.why-section.why-editorial .why-editorial-copy h3{
+  display:block!important;background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;
+  color:#f8ead4!important;font-family:inherit!important;font-size:clamp(20px,2vw,28px)!important;
+  font-weight:800!important;line-height:1.12!important;letter-spacing:-.035em!important;
+  margin:0 0 13px!important;padding:0!important;max-width:18ch!important;
+}
+.why-section.why-editorial .why-editorial-copy p{color:#d9c5ad!important;font-size:15px!important;line-height:1.65!important;max-width:37ch!important;margin:0!important;padding:0!important;}
+/* 1 — accent caramel en marge */
+.why-section.why-editorial .why-editorial-item:nth-child(1){grid-column:span 7!important;padding-left:20px!important;border-top:2px solid #c98c50!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(1):before{content:"01 / LA BASE";position:absolute;left:20px;top:0;transform:translateY(-50%);padding-right:12px;background:#3c291f;color:#dca96f;font-size:10px;font-weight:800;letter-spacing:.18em;}
+.why-section.why-editorial .why-editorial-item:nth-child(1) h3{font-size:clamp(25px,2.8vw,36px)!important;color:#e5b77e!important;}
+/* 2 — colonne décalée */
+.why-section.why-editorial .why-editorial-item:nth-child(2){grid-column:9 / span 4!important;margin-top:48px!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(2) h3{font-size:clamp(18px,1.7vw,23px)!important;color:#fff4e3!important;}
+/* 3 — bande crème, rappel d'une carte de menu */
+.why-section.why-editorial .why-editorial-item:nth-child(3){grid-column:2 / span 5!important;margin-top:24px!important;padding:24px!important;background:#f0dfc3!important;border-top:0!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(3) h3{color:#553521!important;font-size:clamp(22px,2.2vw,30px)!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(3) p{color:#76543b!important;}
+/* 4 — ligne typographique plus discrète */
+.why-section.why-editorial .why-editorial-item:nth-child(4){grid-column:8 / span 5!important;margin-top:56px!important;border-top:1px dashed rgba(226,180,124,.55)!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(4) h3{font-size:clamp(19px,1.9vw,25px)!important;color:#e4b982!important;}
+/* 5 — grand titre, sans cadre */
+.why-section.why-editorial .why-editorial-item:nth-child(5){grid-column:span 6!important;margin-top:14px!important;border-top:2px solid rgba(226,180,124,.65)!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(5) h3{font-size:clamp(24px,2.5vw,33px)!important;}
+/* 6 — bloc café au lait, en contrepoint */
+.why-section.why-editorial .why-editorial-item:nth-child(6){grid-column:8 / span 5!important;margin-top:40px!important;padding:22px 22px 24px!important;background:rgba(239,218,187,.09)!important;border-left:3px solid #c98c50!important;border-top:0!important;}
+.why-section.why-editorial .why-editorial-item:nth-child(6) h3{color:#e7b87e!important;font-size:clamp(20px,2vw,27px)!important;}
+.why-section.why-editorial .why-editorial-finale{border-top:1px solid rgba(242,220,188,.22)!important;margin-top:34px!important;padding-top:26px!important;text-align:left!important;}
+.why-section.why-editorial .why-editorial-finale>span{color:#d6a46d!important;}
+.why-section.why-editorial .why-editorial-finale p{color:#fff0da!important;}
+.why-section.why-editorial .why-editorial-finale p em{color:#dba66d!important;}
+.why-section.why-editorial .why-editorial-finale>div{display:none!important;}
+@media(max-width:760px){
+ .why-section.why-editorial .why-editorial-list{grid-template-columns:1fr!important;gap:0!important;}
+ .why-section.why-editorial .why-editorial-item:nth-child(n){grid-column:1!important;margin-top:0!important;padding:23px 0!important;}
+ .why-section.why-editorial .why-editorial-item:nth-child(1){padding-left:14px!important;}
+ .why-section.why-editorial .why-editorial-item:nth-child(1):before{left:14px;}
+ .why-section.why-editorial .why-editorial-item:nth-child(3){padding:20px!important;margin:10px 0!important;}
+ .why-section.why-editorial .why-editorial-item:nth-child(6){padding:20px!important;margin:10px 0!important;}
+ .why-section.why-editorial .why-editorial-copy h3{font-size:22px!important;max-width:25ch!important;}
+ .why-section.why-editorial .why-editorial-copy p{font-size:14px!important;}
+}
+</style>
+
+
+<style id="story-david-copy-update">
+.story-copy .story-chapter-title{margin:27px 0 13px;color:var(--brand-brown);font-size:clamp(22px,2.4vw,29px);line-height:1.15;letter-spacing:-.035em;font-weight:850}
+.story-copy .story-highlight strong{font-weight:900}
+</style>
+</head>
 <body>
 <div class="topbar brand-nav" id="siteNav">
 <div class="topbar-inner">
@@ -2038,10 +2455,10 @@ body{overflow-x:hidden}
 </a>
 <nav aria-label="Navigation principale" class="site-nav">
 <a href="#histoire">Notre histoire</a>
-<a href="#emplacements">Où nous trouver</a>
 <a href="#pourquoi">Pourquoi nous ?</a>
 <a href="#carte">La carte</a>
 <a href="#avis">Avis</a>
+<a href="#emplacements">Où nous trouver</a>
 <a href="#privatisation">Privatisation</a>
 </nav>
 <div class="top-actions">
@@ -2081,28 +2498,64 @@ body{overflow-x:hidden}
 <div class="story-grid">
 <div class="story-title-wrap"><h2>L’histoire du<br/><em>Mont Smash Burger</em></h2><span class="story-stamp">UNE PASSION · UN DÉCLIC · UNE AVENTURE</span></div>
 <div class="story-copy">
-<p class="lead">Derrière Le Mont Smash Burger, il y a <strong>David</strong>, passionné de cuisine depuis l’âge de 9 ans.</p>
-<p>Après un parcours professionnel plus classique, il comprend à <strong>24 ans</strong> qu’il veut construire une vie autour de ce qui l’anime vraiment : la cuisine. La fameuse voie toute tracée rassure tout le monde… sauf parfois celui qui la suit. 😉</p>
-<p>Originaire de <strong>Haute-Savoie</strong>, il emporte avec lui ses racines, le goût des produits authentiques et les fromages qui ont marqué son histoire. Installé en Bretagne, il découvre dans le <strong>smash burger américain</strong> le terrain parfait pour réunir ses deux univers.</p>
-<p>Le résultat ? <strong>Le Mont Smash Burger</strong> : <em>Le Mont</em> pour les racines savoyardes, <em>Le Smash</em> pour la street food américaine, et <em>Le Burger</em> pour cette passion désormais partagée avec vous.</p>
+<p class="lead">Derrière Le Mont Smash Burger, il y a <strong>David</strong>. Et comme dans toute bonne histoire, tout ne s’est pas passé comme prévu.</p>
+<p>Passionné de cuisine depuis l’âge de <strong>9 ans</strong>, David emprunte d’abord une voie plus classique. Jusqu’à ses <strong>24 ans</strong>, où il décide d’écrire sa propre histoire. Parce qu’au fond, les chemins les plus raisonnables ne sont pas toujours ceux qui nous ressemblent le plus. 😉</p>
+<h3 class="story-chapter-title">Puis, il y a la Bretagne…</h3>
+<p>Un départ, une nouvelle vie… et une histoire dont on gardera quelques secrets. ❤️ Après tout, le cœur a ses raisons que la raison ignore.</p>
+<p>Mais certaines choses ne changent pas. Originaire de <strong>Haute-Savoie</strong>, David garde ses racines, son amour des bons produits et les saveurs de son enfance.</p>
+<p>Jusqu’à la rencontre de deux univers : <strong>le caractère des montagnes savoyardes et l’audace du smash burger américain.</strong></p>
+<p>De cette rencontre naît <strong>Le Mont Smash Burger</strong> : <em>Le Mont</em> pour ses origines, <em>Le Smash</em> pour l’esprit de la street food américaine.</p>
 <div class="story-highlight">
-  Des montagnes à la Bretagne, une passion devenue réalité.<br/>
-<em>Et aujourd’hui, c’est dans chaque burger qu’elle se raconte.</em>
+  <strong>Des montagnes à la Bretagne, une passion devenue réalité.</strong><br/>
+  <em>Et aujourd’hui, c’est dans chaque burger qu’elle se raconte.</em> 
 </div>
 </div>
 </div>
 <div class="story-strip"><span>HAUTE-SAVOIE</span><span>×</span><span>BRETAGNE</span><span>×</span><span>STREET FOOD</span><span>×</span><span>PASSION</span></div>
 </section>
-<section class="brand-section why-section" id="pourquoi">
-<div class="section-heading"><div><div class="section-kicker">L’EXPÉRIENCE MONT SMASH</div><h2>Pourquoi choisir<br/><em>Le Mont Smash ?</em></h2></div><p>Parce que chez nous, les détails ne sont pas là pour faire joli. Ils sont là pour être mangés. 🍔</p></div>
-<div class="why-grid">
-<article><div class="why-icon">🥩</div><h3>Produits frais et viande 100% 🇫🇷</h3><p>Des ingrédients sélectionnés avec soin, une viande 100% française et des produits de qualité pour offrir du goût dans chaque recette.</p></article>
-<article><div class="why-icon">🍟</div><h3>Frites maison</h3><p>Préparées avec soin pour accompagner nos burgers comme il se doit : croustillantes et généreuses.</p></article>
-<article><div class="why-icon">🧁</div><h3>Desserts maison</h3><p>Une petite douceur faite maison pour terminer sur une bonne note.</p></article>
-<article><div class="why-icon">🍗</div><h3>Tenders maison</h3><p>Panés et cuisinés maison : croustillants dehors, tendres dedans.</p></article>
-<article><div class="why-icon">🧀</div><h3>Fromages AOP &amp; IGP</h3><p>Des fromages de caractère pour donner encore plus de personnalité à nos recettes.</p></article>
-<article><div class="why-icon">😏</div><h3>Et la dernière raison ?</h3><p><strong>Viens goûter, tu sauras pourquoi !</strong><br/>On pourrait continuer à te convaincre… mais le meilleur argument reste clairement dans l’assiette.</p></article>
-</div>
+<section class="brand-section why-section why-editorial" id="pourquoi" aria-labelledby="why-editorial-title">
+  <div class="why-editorial-top">
+    <div class="why-editorial-heading">
+      <div class="section-kicker">L’ESPRIT MONT SMASH</div>
+      <h2 id="why-editorial-title">Pourquoi choisir<br/><em>Le Mont Smash&nbsp;?</em></h2>
+    </div>
+
+  </div>
+
+  <div class="why-editorial-content">
+    <aside class="why-editorial-side" aria-label="Signature Le Mont Smash">
+      <div class="why-editorial-wordmark">LE MONT<br/><em>SMASH.</em></div>
+      <p>LE BON GOÛT<br/>NE SE NÉGOCIE PAS.</p>
+      <div class="why-editorial-side-line"></div>
+    </aside>
+
+    <div class="why-editorial-list">
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Le frais donne le ton.</h3><p>Des produits frais, choisis avec soin, pour des burgers généreux et des saveurs qui se remarquent dès la première bouchée.</p></div>
+      </article>
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Une viande française. Du goût, tout simplement.</h3><p>Une viande d’origine française, saisie à la façon smash pour une belle caramélisation et un maximum de saveur.</p></div>
+      </article>
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Les frites maison, dorées comme il faut.</h3><p>Taillées et préparées avec soin, elles apportent ce qu’il faut de gourmandise à chaque menu.</p></div>
+      </article>
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Les desserts maison : la dernière bouchée qu’on attend.</h3><p>Une douceur préparée avec soin pour prolonger le plaisir, même après le burger.</p></div>
+      </article>
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Les tenders maison ont du répondant.</h3><p>Une panure bien croustillante, un intérieur tendre et une vraie gourmandise à tremper dans votre sauce préférée.</p></div>
+      </article>
+      <article class="why-editorial-item">
+        <div class="why-editorial-copy"><h3>Des fromages AOP &amp; IGP qui ont du caractère.</h3><p>Des fromages de caractère, clin d’œil aux Alpes et vraie signature de recettes généreuses.</p></div>
+      </article>
+    </div>
+  </div>
+
+  <div class="why-editorial-finale">
+    <span>LE MEILLEUR ARGUMENT&nbsp;?</span>
+    <p>Il se goûte. <em>Tout simplement.</em></p>
+    <div>LE MONT SMASH <b>×</b> FAIT AVEC CARACTÈRE</div>
+  </div>
 </section>
 <section class="brand-section menu-intro" id="carte">
 <div class="section-heading"><div><div class="section-kicker">À TABLE</div><h2>Découvrez<br/><em>la carte</em></h2></div><a class="brand-cta primary" href="#burgers">Voir les burgers ↓</a></div>
@@ -2140,7 +2593,6 @@ body{overflow-x:hidden}
 <div class="section-kicker">RETROUVEZ-NOUS À LORIENT ET AUX ALENTOURS</div>
 <div class="section-heading locations-heading">
 <div><h2>NOS <em>EMPLACEMENTS</em></h2></div>
-<p>Retrouvez Le Mont Smash Burger près de chez vous. Choisissez votre jour et votre spot, puis lancez votre itinéraire en un clic.</p>
 </div>
 <div class="locations-layout">
 <div class="locations-list">
@@ -2176,7 +2628,7 @@ body{overflow-x:hidden}
 </div>
 </section>
 <section class="brand-section private-section" id="privatisation">
-<div class="private-copy"><div class="section-kicker">VOTRE ÉVÉNEMENT, NOTRE TERRAIN DE JEU</div><h2>Faites venir<br/><em>LE MONT SMASH BURGER.</em></h2><p>Et si votre événement devenait le rendez-vous gourmand dont tout le monde parle ? Notre foodtruck vient directement à vous pour servir des smash burgers généreux, préparés à la minute et dans une ambiance conviviale.</p><p>Anniversaire, mariage, entreprise, association ou événement privé : nous adaptons notre prestation à votre projet 🫶</p><div class="private-proof"><div><strong>100+</strong><span>personnes déjà régalées sur des événements</span></div><div><strong>🔥</strong><span>cuisson et service sur place</span></div><div><strong>🍔</strong><span>burgers préparés à la minute</span></div></div><div class="event-tags"><span>🎂 Anniversaire</span><span>💍 Mariage</span><span>🏢 Entreprise</span><span>🎪 Festival</span><span>⚽ Association</span><span>🎉 Événement privé</span></div></div>
+<div class="private-copy"><div class="section-kicker">VOTRE ÉVÉNEMENT, NOTRE TERRAIN DE JEU</div><h2>Faites venir<br/><em>LE MONT SMASH BURGER</em></h2><p>Et si votre événement devenait le rendez-vous gourmand dont tout le monde parle ? Notre foodtruck vient directement à vous pour servir des smash burgers généreux, préparés à la minute et dans une ambiance conviviale.</p><p>Anniversaire, mariage, entreprise, association ou événement privé : nous adaptons notre prestation à votre projet 🫶</p><div class="private-proof"><div><strong>100+</strong><span>personnes déjà régalées sur des événements</span></div><div><strong>🔥</strong><span>cuisson et service sur place</span></div><div><strong>🍔</strong><span>burgers préparés à la minute</span></div></div><div class="event-tags"><span>🎂 Anniversaire</span><span>💍 Mariage</span><span>🏢 Entreprise</span><span>🎪 Festival</span><span>⚽ Association</span><span>🎉 Événement privé</span></div></div>
 <div class="quote-box"><div class="section-kicker">DEMANDE DE DEVIS</div><h3>Parlez-nous de votre projet.</h3><p>Quelques informations suffisent pour recevoir une première réponse personnalisée.</p><form id="privateQuoteForm">
 <div class="form-row"><label>Prénom / Nom<input autocomplete="name" name="Nom" placeholder="Votre nom" required="" type="text"/></label><label>Téléphone<input autocomplete="tel" name="Téléphone" placeholder="06 00 00 00 00" required="" type="tel"/></label></div>
 <div class="form-row"><label>Email<input autocomplete="email" name="email" placeholder="vous@email.com" required="" type="email"/></label><label>Date souhaitée<input name="Date" required="" type="date"/></label></div>
@@ -2209,7 +2661,7 @@ body{overflow-x:hidden}
 <div class="section-title"><div><h2>Burgers</h2><p class="section-sub">Clique sur un burger pour choisir la formule.</p></div></div>
 <div class="products" id="burgerGrid"></div>
 <section class="extras special-menus">
-<div class="section-title"><div><h2>Menus spéciaux</h2><p class="section-sub">oment, menus enfant et étudiant.</p></div></div>
+<div class="section-title"><div><h2>Menus spéciaux</h2><p class="section-sub">Burger du mois, menus enfant et étudiant.</p></div></div>
 <div class="extras-grid" id="specialMenusGrid"></div>
 </section>
 <section class="extras">
