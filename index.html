@@ -2805,7 +2805,7 @@ body{overflow-x:hidden}
   const EXTRAS = [
     {key:"tenders",label:"Tenders maison x2",emoji:"🍗",price:4,image:"tenders.jpg"},
     {key:"frites",label:"Frites maison",emoji:"🍟",price:3,image:"frite.jpg"},
-    {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante","Eau"]},
+    {key:"drink",label:"Boisson",emoji:"🥤",price:2,image:"boissons.jpg",imageFit:"contain",choices:["Coca","Oasis Pomme Poire","7 UP","Orangina","Ice Tea","Oasis Tropical","Eau pétillante","Eau"]},
     {key:"dessert",label:"Dessert maison",emoji:"🧁",price:3,image:"dessert.jpg",sub:"Voir directement sur place le dessert du moment."},
   ];
   const SPECIAL_MENUS = [
@@ -2817,7 +2817,7 @@ body{overflow-x:hidden}
   // ================== STOCK MANUEL ==================
   // Le stock se gère dans l'onglet "Stock" du Google Sheet.
   // Mets disponible = TRUE ou FALSE dans le Sheet, le site se mettra à jour sans recoder.
-  const MENU_DRINK_CHOICES = ["Eau","Coca","7 UP","Orangina","Ice Tea","Oasis","Eau pétillante"];
+  const MENU_DRINK_CHOICES = ["Eau","Coca","7 UP","Orangina","Oasis Pomme Poire","Ice Tea","Oasis Tropical","Eau pétillante"];
   let stockByKey = {};
   let stockLoaded = false;
   let pickupSlots = null;
