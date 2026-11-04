@@ -2445,6 +2445,17 @@ body{overflow-x:hidden}
 .story-copy .story-chapter-title{margin:27px 0 13px;color:var(--brand-brown);font-size:clamp(22px,2.4vw,29px);line-height:1.15;letter-spacing:-.035em;font-weight:850}
 .story-copy .story-highlight strong{font-weight:900}
 </style>
+<style id="lmsb-cabesto-promo">
+/* Promotion Cabesto : rouge plus visible, tout en gardant le style du site. */
+.burger-card.is-cabesto-promo{border:1.5px solid rgba(190,48,43,.52);background:linear-gradient(135deg,#fffdfb 0%,#fff0ee 100%);box-shadow:0 7px 20px rgba(190,48,43,.09)}
+.burger-card.is-cabesto-promo .promo-prices{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0}
+.burger-card.is-cabesto-promo .promo-old-price{font-size:.78rem;color:#927c70;text-decoration:line-through;font-weight:850;white-space:nowrap}
+.burger-card.is-cabesto-promo .promo-new-price{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;background:#ffe0de;border:1px solid #f3b8b4;color:#b51f25;font-size:.98rem;font-weight:1100;white-space:nowrap}
+.burger-card.is-cabesto-promo .promo-badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:#c62828;color:#fff;font-size:.70rem;font-weight:1000;letter-spacing:.02em;white-space:nowrap;box-shadow:0 3px 9px rgba(198,40,40,.18)}
+#upsellModal .upsell-card.cabesto-promo{background:#fff9f6;border-color:rgba(164,75,64,.28)}
+#upsellModal .upsell-card.cabesto-promo #upsellProduct{color:#8f3e36}
+#upsellModal .upsell-card.cabesto-promo #upsellPrice{background:#f8e9e5;color:#9d4138}
+</style>
 </head>
 <body>
 <div class="topbar brand-nav" id="siteNav">
@@ -2706,14 +2717,14 @@ body{overflow-x:hidden}
 <div class="modal-body">
 <div class="modal-title"><div><h3 id="modalName">Burger</h3><p class="mut" id="modalDesc"></p></div><button class="close" onclick="closeBurgerModal()" type="button">×</button></div>
 <div class="option-list" id="formulaOptions">
-<label class="option active"><input checked="" name="formula" type="radio" value="solo"/><div><b>Burger seul · 11€</b><span>Le burger uniquement.</span></div></label>
-<label class="option"><input name="formula" type="radio" value="menu"/><div><b>Menu burger + frites · 13€</b><span>Sans boisson · avec eau +0,50 € · avec soda +1,50 €.</span></div></label>
+<label class="option active"><input checked="" name="formula" type="radio" value="solo"/><div><b id="formulaSoloLabel">Burger seul · 11€</b><span>Le burger uniquement.</span></div></label>
+<label class="option"><input name="formula" type="radio" value="menu"/><div><b id="formulaMenuLabel">Menu burger + frites · 13€</b><span>Sans boisson · avec eau +0,50 € · avec soda +1,50 €.</span></div></label>
 </div>
 <div class="drink-choice-box" id="drinkBox" style="display:none">
 <label>Boisson</label>
 <div aria-label="Choix de la boisson" class="drink-main-buttons" role="group">
 <button class="drink-main-btn active" id="drinkNoneBtn" onclick="selectMenuDrinkType('none')" type="button">
-<span>Sans boisson</span><small>13 €</small>
+<span>Sans boisson</span><small id="drinkNonePrice">13 €</small>
 </button>
 <button class="drink-main-btn" id="drinkWaterBtn" onclick="selectMenuDrinkType('water')" type="button">
 <span>Eau</span><small>+0,50 €</small>
@@ -2756,7 +2767,7 @@ body{overflow-x:hidden}
 </div>
 <div class="modal-actions">
 <button class="btn btn-light" onclick="skipUpsell()" type="button">Non merci</button>
-<button class="btn btn-primary" onclick="addUpsell()" type="button">Ajouter</button>
+<button class="btn btn-primary" id="upsellAddButton" onclick="addUpsell()" type="button">Ajouter</button>
 </div>
 </div>
 </div>
@@ -2782,6 +2793,7 @@ body{overflow-x:hidden}
 (() => {
   const LIVE_URL = "https://script.google.com/macros/s/AKfycbym3Ks7FXqoD9-RQI0ioC_mhdhx44-A4nY4HhixpqcOg2Mb2gMKv6gKa2kT3Va5it2H_A/exec";
   const PRICES = {burger:11,menu:13,water:0.5,soda:1.5,student:10,child:8.5,supCheese:2,supSteak:2};
+  const CABESTO_PROMO_PRICE = Number((PRICES.burger * 0.7).toFixed(2));
   const BURGERS = [
     {key:"yaute",name:"Yaute",image:"yaute.jpg",desc:"Pain brioché, 2 steaks smash, raclette de Savoie IGP, oignons rouges et caramélisés, iceberg, sauce D."},
     {key:"chickAvo",name:"Chick’Avo",image:"chick-avo.jpg",desc:"Pain brioché, 2 tenders maison, cheddar maturé, purée d’avocat, oignons rouges, iceberg, sauce D."},
@@ -2823,7 +2835,7 @@ body{overflow-x:hidden}
     0: null,
     1: null,
     2: null,
-    3: [{label:"Mercredi midi", location:"Parc Youri Gagarine, LORIENT", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"13:45"}, {label:"Mercredi soir", location:"Parking du Cabesto, LORIENT", orderStart:"16:00", pickupStart:"18:45", pickupEnd:"20:45"}
+    3: [{label:"Mercredi midi", location:"Parc Youri Gagarine, LORIENT", orderStart:"9:00", pickupStart:"11:45", pickupEnd:"13:45"}, {label:"Mercredi soir", location:"Parking du Cabesto, LORIENT", orderStart:"16:00", pickupStart:"18:45", pickupEnd:"20:45"}
     ],
     4: [
       {label:"Jeudi midi", location:"Parc de Soye, 5 All. Copernic, Parking JLBI Acoustique, 56270 Ploemeur", orderStart:"10:00", pickupStart:"12:00", pickupEnd:"14:00"},
@@ -3170,22 +3182,25 @@ body{overflow-x:hidden}
   function calcTotal(){return cart.reduce((s,l)=>s+Number(l.price||0)*Number(l.qty||0),0);}
   function cartItemsCount(){return cart.reduce((s,l)=>s+Number(l.qty||0),0);}
   function currentFormula(){const c=document.querySelector('input[name="formula"]:checked');return c?c.value:"solo";}
-  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0);let price=mode==="menu"?PRICES.menu:PRICES.burger;if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
-  function updateModalPrice(){const mode=currentFormula();document.getElementById("drinkBox").style.display=mode==="menu"?"block":"none";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
+  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),burger=activeBurgerOverride||(activeBurgerIndex!==null?BURGERS[activeBurgerIndex]:null),basePrice=burger&&burger.key==="cabesto"?CABESTO_PROMO_PRICE:PRICES.burger;let price=basePrice+(mode==="menu"?PRICES.menu-PRICES.burger:0);if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
+  function updateModalPrice(){const mode=currentFormula(),burger=activeBurgerOverride||(activeBurgerIndex!==null?BURGERS[activeBurgerIndex]:null),isCabesto=!!(burger&&burger.key==="cabesto"),basePrice=isCabesto?CABESTO_PROMO_PRICE:PRICES.burger,menuPrice=basePrice+(PRICES.menu-PRICES.burger);document.getElementById("drinkBox").style.display=mode==="menu"?"block":"none";document.getElementById("formulaSoloLabel").textContent=isCabesto?"Burger seul · "+euro(basePrice):"Burger seul · 11€";document.getElementById("formulaMenuLabel").textContent=isCabesto?"Menu burger + frites · "+euro(menuPrice):"Menu burger + frites · 13€";document.getElementById("drinkNonePrice").textContent=isCabesto?euro(menuPrice):"13 €";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
   window.openBurgerModal = idx => {activeBurgerIndex=idx;activeBurgerOverride=null;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}openBurgerChoiceModal(b);};
   window.openBurgerMomentModal = () => {activeBurgerIndex=null;activeBurgerOverride={key:"burgerMoment",name:"Burger du mois",image:"mystere.jpg",desc:"Découvre notre burger du moment."};openBurgerChoiceModal(activeBurgerOverride);};
   function openBurgerChoiceModal(b){document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateModalPrice();document.getElementById("burgerModal").classList.add("active");}
   window.closeBurgerModal = () => document.getElementById("burgerModal").classList.remove("active");
   window.changeModalCounter = (type,delta) => {const id=type==="cheese"?"modalCheese":"modalSteak";const el=document.getElementById(id);el.textContent=String(Math.max(0,Number(el.textContent||0)+delta));updateModalPrice();};
-  window.addBurgerFromModal = () => {if(activeBurgerIndex==null&&!activeBurgerOverride)return;const isMoment=!!activeBurgerOverride,b=isMoment?activeBurgerOverride:BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isMoment&&!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:isMoment?"":stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});activeBurgerOverride=null;saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
+  window.addBurgerFromModal = () => {if(activeBurgerIndex==null&&!activeBurgerOverride)return;const isMoment=!!activeBurgerOverride,b=isMoment?activeBurgerOverride:BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isMoment&&!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(!isMoment&&b.key==="cabesto")meta+=" · Offre -30 %";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:isMoment?"":stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});activeBurgerOverride=null;saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
   let upsellQueue = [];
   function cartHas(key){
     return cart.some(l => String(l.type || "") === key || String(l.label || "").toLowerCase().includes(key));
   }
   function buildUpsellQueue(){
     const q = [];
+    const cabesto = BURGERS.find(b => b.key === "cabesto");
+    const hasCabesto = cart.some(l => String(l.stockKey || "") === "burger:cabesto" || String(l.label || "").toLowerCase().includes("cabesto"));
     const hasTenders = cart.some(l => String(l.label || "").toLowerCase().includes("tenders"));
     const hasDessert = cart.some(l => String(l.label || "").toLowerCase().includes("dessert"));
+    if(cabesto && !hasCabesto && isBurgerAvailable(cabesto)) q.push("cabesto");
     if(!hasTenders && isStockAvailable("extra:tenders")) q.push("tenders");
     if(!hasDessert && isStockAvailable("extra:dessert")) q.push("dessert");
     return q;
@@ -3198,7 +3213,17 @@ body{overflow-x:hidden}
       return;
     }
     const type = upsellQueue[0];
-    if(type === "tenders"){
+    const addButton = document.getElementById("upsellAddButton");
+    if(addButton) addButton.textContent = type === "cabesto" ? "Ajouter à 7,70 €" : "Ajouter";
+    const upsellCard = document.querySelector("#upsellModal .upsell-card");
+    if(upsellCard) upsellCard.classList.toggle("cabesto-promo", type === "cabesto");
+    if(type === "cabesto"){
+      document.getElementById("upsellTitle").textContent = "Une offre à prix doux ?";
+      document.getElementById("upsellText").textContent = "Le Cabesto passe à -30 % avec ta commande.";
+      document.getElementById("upsellProduct").textContent = "🍔 Cabesto — offre spéciale";
+      document.getElementById("upsellPrice").textContent = euro(CABESTO_PROMO_PRICE);
+      document.getElementById("upsellDesc").textContent = "7,70 € au lieu de 11,00 €. L’occasion de le découvrir.";
+    } else if(type === "tenders"){
       document.getElementById("upsellTitle").textContent = "Petite faim ?";
       document.getElementById("upsellText").textContent = "Deux tenders maison avec ton burger ?";
       document.getElementById("upsellProduct").textContent = "🍗 Tenders maison x2";
@@ -3231,10 +3256,14 @@ body{overflow-x:hidden}
   };
   window.addUpsell = () => {
     const type = upsellQueue.shift();
-    if(type === "tenders"){
+    if(type === "cabesto"){
+      const cabesto = BURGERS.find(b => b.key === "cabesto");
+      if(!cabesto || !isBurgerAvailable(cabesto)){stockToast(["burger:cabesto"]);showNextUpsell();return;}
+      cart.push({id:uid(),type:"burger",stockKey:stockKeyForBurger(cabesto),label:"🍔 Cabesto",meta:"Seul · Offre -30 %",notes:"",price:CABESTO_PROMO_PRICE,qty:1,mode:"solo",baseItems:1,comped:false});
+    } else if(type === "tenders"){
       if(!isStockAvailable("extra:tenders")){stockToast(["extra:tenders"]);showNextUpsell();return;}
       cart.push({id:uid(),type:"extra",label:"🍗 Tenders maison x2",meta:"",notes:"",price:4,qty:1,baseItems:1,comped:false});
-    } else {
+    } else if(type === "dessert"){
       if(!isStockAvailable("extra:dessert")){stockToast(["extra:dessert"]);showNextUpsell();return;}
       cart.push({id:uid(),type:"extra",label:"🧁 Dessert maison",meta:"",notes:"",price:3,qty:1,baseItems:1,comped:false});
     }
@@ -3243,7 +3272,7 @@ body{overflow-x:hidden}
     showNextUpsell();
   };
   window.closeCheckout = () => document.getElementById("checkoutModal").classList.remove("active");
-  function renderBurgers(){document.getElementById("burgerGrid").innerHTML=BURGERS.map((b,idx)=>{const available=isBurgerAvailable(b);const stockNote=available?"":`<p class="stock-note">Victime de son succès !</p>`;return `<button class="burger-card ${available?"":"is-out"}" type="button" ${available?`onclick="window.openBurgerModal(${idx})"`:"disabled"}><div class="pic"><img src="${escapeHtml(b.image)}" alt="${escapeHtml(b.name)}" onerror="this.style.display='none'"><span>🍔</span></div><div class="burger-info"><h3>${escapeHtml(b.name)}</h3><p>${escapeHtml(b.desc)}</p>${stockNote}<div class="price-row"><span class="price">11€</span><span class="choose">${available?"Choisir":"Victime de son succès"}</span></div></div></button>`}).join("");}
+  function renderBurgers(){document.getElementById("burgerGrid").innerHTML=BURGERS.map((b,idx)=>{const available=isBurgerAvailable(b),isPromo=b.key==="cabesto";const stockNote=available?"":`<p class="stock-note">Victime de son succès !</p>`;const priceHtml=isPromo?`<span class="promo-prices"><span class="promo-old-price">${PRICES.burger}€</span><strong class="promo-new-price">${euro(CABESTO_PROMO_PRICE)}</strong><span class="promo-badge">-30 %</span></span>`:`<span class="price">11€</span>`;return `<button class="burger-card ${available?"":"is-out"} ${isPromo?"is-cabesto-promo":""}" type="button" ${available?`onclick="window.openBurgerModal(${idx})"`:"disabled"}><div class="pic"><img src="${escapeHtml(b.image)}" alt="${escapeHtml(b.name)}" onerror="this.style.display='none'"><span>🍔</span></div><div class="burger-info"><h3>${escapeHtml(b.name)}</h3><p>${escapeHtml(b.desc)}</p>${stockNote}<div class="price-row">${priceHtml}<span class="choose">${available?"Choisir":"Victime de son succès"}</span></div></div></button>`}).join("");}
   function renderSpecialMenus(){
     document.getElementById("specialMenusGrid").innerHTML=SPECIAL_MENUS.map((e,idx)=>{
       const available=e.key==="burgerMoment"
