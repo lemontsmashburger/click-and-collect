@@ -2462,6 +2462,17 @@ body{overflow-x:hidden}
 #upsellModal .upsell-card.cabesto-promo #upsellProduct{color:#8f3e36}
 #upsellModal .upsell-card.cabesto-promo #upsellPrice{background:#f8e9e5;color:#9d4138}
 </style>
+<style id="lmsb-vegetarian-compact">
+  /* Option végétarienne compacte : une seule ligne, sans grande carte. */
+  .burger-version-line{display:flex;align-items:center;justify-content:flex-start;margin:0 0 2px;min-width:0}
+  .burger-version-toggle{display:inline-flex;align-items:center;gap:8px;margin:0;padding:7px 11px;border:1px solid rgba(64,40,28,.16);border-radius:999px;background:#fbf4e8;color:var(--brand-brown,#40281c);cursor:pointer;text-transform:none;letter-spacing:normal;font-size:.82rem;font-weight:850;line-height:1.2}
+  .burger-version-toggle input{width:16px;height:16px;flex:0 0 16px;margin:0;padding:0;border:0;accent-color:var(--brand-gold,#c4863d)}
+  .veggie-hint{margin:-3px 0 1px 4px;color:#786555;font-size:.74rem;line-height:1.35;font-weight:700}
+  .special-veggie-toggle{display:flex;align-items:center;gap:7px;margin:1px 0;padding:3px 0;color:var(--brand-brown,#40281c);cursor:pointer;text-transform:none;letter-spacing:normal;font-size:.76rem;font-weight:800;line-height:1.25}
+  .special-veggie-toggle input{width:15px;height:15px;flex:0 0 15px;margin:0;padding:0;border:0;accent-color:var(--brand-gold,#c4863d)}
+  .special-veggie-toggle span{display:inline;min-width:0}
+  @media(max-width:480px){.burger-version-toggle{padding:7px 10px;font-size:.79rem}.veggie-hint{font-size:.71rem}}
+</style>
 </head>
 <body>
 <div class="topbar brand-nav" id="siteNav">
@@ -2722,6 +2733,12 @@ body{overflow-x:hidden}
 <div class="modal-visual"><img alt="" id="modalImg" onerror="this.style.display='none'" src=""/><span>🍔</span></div>
 <div class="modal-body">
 <div class="modal-title"><div><h3 id="modalName">Burger</h3><p class="mut" id="modalDesc"></p></div><button class="close" onclick="closeBurgerModal()" type="button">×</button></div>
+<div class="burger-version-line">
+  <label class="burger-version-toggle" for="burgerVegetarian">
+    <input id="burgerVegetarian" type="checkbox" onchange="updateBurgerVersion()"/>
+    <span>🥔 Option végétarienne</span>
+  </label>
+</div>
 <div class="option-list" id="formulaOptions">
 <label class="option active"><input checked="" name="formula" type="radio" value="solo"/><div><b id="formulaSoloLabel">Burger seul · 11€</b><span>Le burger uniquement.</span></div></label>
 <label class="option"><input name="formula" type="radio" value="menu"/><div><b id="formulaMenuLabel">Menu burger + frites · 13€</b><span>Sans boisson · avec eau +0,50 € · avec soda +1,50 €.</span></div></label>
@@ -2747,7 +2764,7 @@ body{overflow-x:hidden}
 </div>
 <div class="extras-controls">
 <div class="counter">🧀 Fromage<button onclick="changeModalCounter('cheese',-1)" type="button">−</button><span id="modalCheese">0</span><button onclick="changeModalCounter('cheese',1)" type="button">+</button></div>
-<div class="counter">🥩 Steak<button onclick="changeModalCounter('steak',-1)" type="button">−</button><span id="modalSteak">0</span><button onclick="changeModalCounter('steak',1)" type="button">+</button></div>
+<div class="counter" id="steakControl">🥩 Steak<button onclick="changeModalCounter('steak',-1)" type="button">−</button><span id="modalSteak">0</span><button onclick="changeModalCounter('steak',1)" type="button">+</button></div>
 </div>
 <div><label>Notes</label><input id="modalNotes" placeholder="Sans oignons, sans salade..."/></div>
 <div class="modal-actions"><button class="btn btn-light" onclick="closeBurgerModal()" type="button">Annuler</button><button class="btn btn-primary" onclick="addBurgerFromModal()" type="button">Ajouter · <span id="modalPrice">11,00 €</span></button></div>
@@ -3188,14 +3205,24 @@ body{overflow-x:hidden}
   function calcTotal(){return cart.reduce((s,l)=>s+Number(l.price||0)*Number(l.qty||0),0);}
   function cartItemsCount(){return cart.reduce((s,l)=>s+Number(l.qty||0),0);}
   function currentFormula(){const c=document.querySelector('input[name="formula"]:checked');return c?c.value:"solo";}
-  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),burger=activeBurgerOverride||(activeBurgerIndex!==null?BURGERS[activeBurgerIndex]:null),basePrice=burger&&burger.key==="cabesto"?CABESTO_PROMO_PRICE:PRICES.burger;let price=basePrice+(mode==="menu"?PRICES.menu-PRICES.burger:0);if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
+  function currentBurgerVersion(){return document.getElementById("burgerVegetarian")?.checked?"vegetarian":"classic";}
+  window.updateBurgerVersion=()=>{
+    const vegetarian=currentBurgerVersion()==="vegetarian";
+    const steakControl=document.getElementById("steakControl");
+    if(steakControl) steakControl.style.display=vegetarian?"none":"";
+    if(vegetarian) document.getElementById("modalSteak").textContent="0";
+    const hint=document.getElementById("veggieHint");
+    if(hint) hint.hidden=!vegetarian;
+    updateModalPrice();
+  };
+  function modalBurgerPrice(){const mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=currentBurgerVersion()==="vegetarian"?0:Number(document.getElementById("modalSteak").textContent||0),burger=activeBurgerOverride||(activeBurgerIndex!==null?BURGERS[activeBurgerIndex]:null),basePrice=burger&&burger.key==="cabesto"?CABESTO_PROMO_PRICE:PRICES.burger;let price=basePrice+(mode==="menu"?PRICES.menu-PRICES.burger:0);if(mode==="menu")price+=drink==="Eau"?PRICES.water:drink?PRICES.soda:0;price+=cheese*PRICES.supCheese+steak*PRICES.supSteak;return price;}
   function updateModalPrice(){const mode=currentFormula(),burger=activeBurgerOverride||(activeBurgerIndex!==null?BURGERS[activeBurgerIndex]:null),isCabesto=!!(burger&&burger.key==="cabesto"),basePrice=isCabesto?CABESTO_PROMO_PRICE:PRICES.burger,menuPrice=basePrice+(PRICES.menu-PRICES.burger);document.getElementById("drinkBox").style.display=mode==="menu"?"block":"none";document.getElementById("formulaSoloLabel").textContent=isCabesto?"Burger seul · "+euro(basePrice):"Burger seul · 11€";document.getElementById("formulaMenuLabel").textContent=isCabesto?"Menu burger + frites · "+euro(menuPrice):"Menu burger + frites · 13€";document.getElementById("drinkNonePrice").textContent=isCabesto?euro(menuPrice):"13 €";document.getElementById("modalPrice").textContent=euro(modalBurgerPrice());document.querySelectorAll(".option").forEach(label=>{const input=label.querySelector("input");label.classList.toggle("active",input.checked);});}
   window.openBurgerModal = idx => {activeBurgerIndex=idx;activeBurgerOverride=null;const b=BURGERS[idx];if(!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);loadStock();return;}openBurgerChoiceModal(b);};
   window.openBurgerMomentModal = () => {activeBurgerIndex=null;activeBurgerOverride={key:"burgerMoment",name:"Burger du mois",image:"mystere.jpg",desc:"Découvre notre burger du moment."};openBurgerChoiceModal(activeBurgerOverride);};
-  function openBurgerChoiceModal(b){document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";updateModalPrice();document.getElementById("burgerModal").classList.add("active");}
+  function openBurgerChoiceModal(b){document.getElementById("modalName").textContent=b.name;document.getElementById("modalDesc").textContent=b.desc;const img=document.getElementById("modalImg");img.style.display="block";img.src=b.image;img.alt=b.name;document.querySelector('input[name="formula"][value="solo"]').checked=true;document.getElementById("burgerVegetarian").checked=false;updateModalDrinkOptions();document.getElementById("modalDrink").value="";updateModalDrinkOptions();document.getElementById("modalCheese").textContent="0";document.getElementById("modalSteak").textContent="0";document.getElementById("modalNotes").value="";window.updateBurgerVersion();updateModalPrice();document.getElementById("burgerModal").classList.add("active");}
   window.closeBurgerModal = () => document.getElementById("burgerModal").classList.remove("active");
-  window.changeModalCounter = (type,delta) => {const id=type==="cheese"?"modalCheese":"modalSteak";const el=document.getElementById(id);el.textContent=String(Math.max(0,Number(el.textContent||0)+delta));updateModalPrice();};
-  window.addBurgerFromModal = () => {if(activeBurgerIndex==null&&!activeBurgerOverride)return;const isMoment=!!activeBurgerOverride,b=isMoment?activeBurgerOverride:BURGERS[activeBurgerIndex],mode=currentFormula(),drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isMoment&&!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(!isMoment&&b.key==="cabesto")meta+=" · Offre -30 %";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:isMoment?"":stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});activeBurgerOverride=null;saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
+  window.changeModalCounter = (type,delta) => {if(type==="steak"&&currentBurgerVersion()==="vegetarian")return;const id=type==="cheese"?"modalCheese":"modalSteak";const el=document.getElementById(id);el.textContent=String(Math.max(0,Number(el.textContent||0)+delta));updateModalPrice();};
+  window.addBurgerFromModal = () => {if(activeBurgerIndex==null&&!activeBurgerOverride)return;const isMoment=!!activeBurgerOverride,b=isMoment?activeBurgerOverride:BURGERS[activeBurgerIndex],mode=currentFormula(),vegetarian=currentBurgerVersion()==="vegetarian",drink=document.getElementById("modalDrink").value,cheese=Number(document.getElementById("modalCheese").textContent||0),steak=vegetarian?0:Number(document.getElementById("modalSteak").textContent||0),notes=clean(document.getElementById("modalNotes").value),price=modalBurgerPrice();if(!isMoment&&!isBurgerAvailable(b)){stockToast([stockKeyForBurger(b)]);closeBurgerModal();renderBurgers();loadStock();return;}if(mode==="menu"&&drink&&!isStockAvailable("drink:"+drink)){stockToast(["drink:"+drink]);loadStock();return;}let meta=vegetarian?"Version végétarienne · galette de pomme de terre · ":"";meta+=mode==="menu"?"Menu + frites"+(drink?" + "+drink:""):"Seul";if(!isMoment&&b.key==="cabesto")meta+=" · Offre -30 %";if(cheese)meta+=` · +${cheese} fromage`;if(steak)meta+=` · +${steak} steak`;cart.push({id:uid(),type:"burger",stockKey:isMoment?"":stockKeyForBurger(b),label:"🍔 "+b.name,meta,notes,price,qty:1,mode,baseItems:mode==="solo"?1:(drink?3:2),comped:false});activeBurgerOverride=null;saveCart();renderCart();closeBurgerModal();toast("Ajouté au panier");};
   let upsellQueue = [];
   function cartHas(key){
     return cart.some(l => String(l.type || "") === key || String(l.label || "").toLowerCase().includes(key));
@@ -3293,7 +3320,10 @@ body{overflow-x:hidden}
       const note=!available
         ? `<p class="stock-note">Indisponible pour le moment</p>`
         : "";
-      return `<article class="extra-card ${available?"":"is-out"}"><div class="extra-visual extra-${e.key}"><img src="${escapeHtml(e.image)}" alt="${escapeHtml(e.label)}" loading="lazy" onerror="this.style.display='none'"><span>${e.emoji}</span></div><div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div><p class="extra-sub">${escapeHtml(e.sub)}</p>${choiceSelect}${note}<button class="add-extra" type="button" ${available?"":"disabled"} onclick="window.addSpecialMenu(${idx})">${available?"Ajouter":"Indisponible"}</button></div></article>`;
+      const veggieChoice=(e.key==="student"||e.key==="child")
+        ? `<label class="special-veggie-toggle"><input type="checkbox" id="special-veggie-${idx}"><span>🥔 Version végétarienne · galette de pomme de terre</span></label>`
+        : "";
+      return `<article class="extra-card ${available?"":"is-out"}"><div class="extra-visual extra-${e.key}"><img src="${escapeHtml(e.image)}" alt="${escapeHtml(e.label)}" loading="lazy" onerror="this.style.display='none'"><span>${e.emoji}</span></div><div class="extra-content"><div class="extra-top"><b><span class="extra-emoji">${e.emoji}</span><span class="extra-label-text">${escapeHtml(e.label)}</span></b><span class="price">${euro(e.price)}</span></div><p class="extra-sub">${escapeHtml(e.sub)}</p>${veggieChoice}${choiceSelect}${note}<button class="add-extra" type="button" ${available?"":"disabled"} onclick="window.addSpecialMenu(${idx})">${available?"Ajouter":"Indisponible"}</button></div></article>`;
     }).join("");
   }
   window.addSpecialMenu=idx=>{
@@ -3304,12 +3334,14 @@ body{overflow-x:hidden}
     }else if(e.key==="student"){
       const missing=["burger:cheese","drink:Eau"].filter(key=>!isStockAvailable(key));
       if(missing.length){stockToast(missing);loadStock();return;}
-      cart.push({id:uid(),type:"student",mode:"student",stockKey:"burger:cheese",label:"🎓 Menu étudiant",meta:"Cheese + frites + Eau",notes:"Justificatif étudiant à présenter au retrait",price:PRICES.student,qty:1,baseItems:3,comped:false});
+      const vegetarian=!!document.getElementById("special-veggie-0")?.checked;
+      cart.push({id:uid(),type:"student",mode:"student",stockKey:"burger:cheese",label:"🎓 Menu étudiant",meta:vegetarian?"Cheese végétarien · galette de pomme de terre + frites + Eau":"Cheese + frites + Eau",notes:"Justificatif étudiant à présenter au retrait",price:PRICES.student,qty:1,baseItems:3,comped:false});
     }else{
       if(!isExtraAvailable(e)){stockToast(["extra:child"]);return;}
       const choice=document.getElementById(`specialChoice-${idx}`)?.value;
       if(!choice || !isStockAvailable("child:"+choice)){stockToast(["child:"+choice]);loadStock();return;}
-      cart.push({id:uid(),type:"child",stockKey:"extra:child",label:`👶 Menu enfant (${choice})`,meta:"Burger + frites + "+choice,notes:"",price:e.price,qty:1,baseItems:3,comped:false});
+      const vegetarian=!!document.getElementById(`special-veggie-${idx}`)?.checked;
+      cart.push({id:uid(),type:"child",stockKey:"extra:child",label:`👶 Menu enfant (${choice})`,meta:vegetarian?"Burger végétarien · galette de pomme de terre + frites + "+choice:"Burger + frites + "+choice,notes:"",price:e.price,qty:1,baseItems:3,comped:false});
     }
     saveCart();renderCart();toast("Ajouté au panier");
   };
